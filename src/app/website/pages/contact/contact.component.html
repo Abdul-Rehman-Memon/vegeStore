@@ -42,7 +42,7 @@
         </div>
       </div>
     </div>
-    <form [formGroup]="form" (ngSubmit)="submitForm()">
+    <form [formGroup]="contactform" (ngSubmit)="submitForm()">
       <div class="row">
         <div class="col-lg-6 col-md-6">
           <input type="text" placeholder="Your name" formControlName="name" />
@@ -55,7 +55,13 @@
             placeholder="Your message"
             formControlName="message"
           ></textarea>
-          <button type="submit" class="site-btn">SEND MESSAGE</button>
+          <button
+            type="submit"
+            class="site-btn"
+            [disabled]="!contactform.valid"
+          >
+            SEND MESSAGE
+          </button>
         </div>
       </div>
     </form>

@@ -1,5 +1,10 @@
 import { Component } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from "@angular/forms";
 import { ContactService } from "../../service/contact/contact.service";
 
 @Component({
@@ -8,11 +13,12 @@ import { ContactService } from "../../service/contact/contact.service";
   styleUrls: ["./contact.component.scss"],
 })
 export class ContactComponent {
-  form: FormGroup | any;
   constructor(
     private formBuilder: FormBuilder,
     private contact: ContactService,
   ) {}
+
+  contactform: FormGroup | any;
 
   contactWidgets = [
     {
@@ -23,7 +29,7 @@ export class ContactComponent {
     {
       icon: "icon_pin_alt",
       title: "Address",
-      text: "190, Baleni ,Dambovita, Romania",
+      text: "190, Baleni, Dambovita, Romania",
     },
     {
       icon: "icon_clock_alt",
@@ -40,19 +46,26 @@ export class ContactComponent {
   ngOnInit() {
     this.forms();
   }
+
   forms() {
-    this.form = this.formBuilder.group({
+    this.contactform = this.formBuilder.group({
       name: ["", Validators.required],
       email: ["", Validators.required],
       message: ["", Validators.required],
     });
   }
 
-  submitForm() {
-    const data = this.form.value;
+  async submitForm() {
+    try {
+      const data = this.contactform.value;
 
-    console.log({ data });
-    const response = this.contact.createContact(data);
-    console.log({ response });
+      const response = await this.contact.createContact(data);
+      console.log({ response });
+
+      // Handle the response as needed, e.g., show a success message
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      // Handle the error, e.g., show an error message
+    }
   }
 }

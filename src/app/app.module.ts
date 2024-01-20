@@ -10,14 +10,9 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    SharedModule,
-    WebsiteModule,
-    ReactiveFormsModule,
-  ],
+  imports: [BrowserModule, AppRoutingModule, SharedModule, WebsiteModule],
   providers: [
+    // Provide the TokenInterceptor as an HTTP interceptor
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

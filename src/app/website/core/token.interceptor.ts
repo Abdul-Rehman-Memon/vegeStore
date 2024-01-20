@@ -6,42 +6,79 @@ import {
   HttpInterceptor,
   HttpErrorResponse,
 } from "@angular/common/http";
-import { Observable, catchError, throwError } from "rxjs";
+import { catchError, Observable, throwError } from "rxjs";
+import { environment } from "src/environments/environment";
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor() {}
-  token: any;
-  req: any;
+  private baseUrl = `${environment.baseApi}/vegeStore/api/v1`;
 
   intercept(
-    request: HttpRequest<unknown>,
+    req: HttpRequest<any>,
     next: HttpHandler,
-  ): Observable<HttpEvent<unknown>> | any {
-    // try {
-    this.token = sessionStorage.getItem("token");
-    if (!this.token) {
-      return next.handle(request);
-    }
-    if (this.token) {
-      this.req = request.clone({
-        headers: request.headers.set("Authorization", this.token),
-        url: request.url,
+  ): Observable<HttpEvent<any>> {
+    // const user = sessionStorage.getItem("user");
+
+    // if (!user) {
+    //   return next.handle(req);
+    // }
+
+    try {
+      // const token = JSON.parse(user).token;
+      const modifiedRequest = req.clone({
+        url: `${this.baseUrl}/${req.url}`,
+        // headers: req.headers.set("Authorization", `${token}`),
       });
-      return next.handle(this.req).pipe(
-        catchError((error: HttpErrorResponse) => {
-          let errorMessage = "";
-          if (error.error instanceof ErrorEvent) {
-            // Client-side error
-            errorMessage = `Error: ${error.error.message}`;
-          } else {
-            // Server-side error
-            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-          }
-          // this.toaster.error(errorMessage);
-          return throwError(() => new Error(errorMessage));
-        }),
+
+      return next.handle(modifiedRequest);
+    } catch (err) {
+      console.log({ err });
+      return throwError(
+        () => new Error("Something bad happened; please try again later."),
       );
     }
   }
+
+  // intercept(
+  //   request: HttpRequest<unknown>,
+  //   next: HttpHandler,
+  // ): Observable<HttpEvent<unknown>> {
+  //   // Get the token from sessionStorage
+  //   const token = sessionStorage.getItem("token");
+
+  //   // If no token, proceed without modification
+  //   if (!token) {
+  //     return next.handle(request);
+  //   }
+
+  //   // Construct the new request with the Authorization header
+  //   const apiUrl =
+  //     request.url === `http://192.168.100.17/amiscript.php`
+  //       ? request.url
+  //       : `${this.baseUrl}/${request.url}`;
+
+  //   const modifiedRequest = request.clone({
+  //     headers: request.headers.set("Authorization", token),
+  //     url: apiUrl,
+  //   });
+
+  //   // Pass the modified request through the interceptor
+  //   return next.handle(modifiedRequest).pipe(
+  //     catchError((error: HttpErrorResponse) => {
+  //       console.log({ error });
+  //       // Handle errors here, you may want to log or display messages
+  //       let err = error?.error;
+  //       if (err?.meta) {
+  //         // Handle specific error case
+  //         console.error("Error with meta:", err.meta);
+  //       }
+  //       if (error?.message) {
+  //         // Handle general error case
+  //         console.error("General error:", error.message);
+  //       }
+  //       // Pass the error along to be caught by the calling code
+  //       return throwError(() => error);
+  //     }),
+  //   );
+  // }
 }

@@ -10,7 +10,7 @@ export class ContactService {
   constructor(private http: HttpClient, private httpService: HttpService) {}
 
   async createContact(payload: createProduct) {
-    const message = this.httpService.createHttpParams(payload);
-    return await this.http.post(`/contact`, message);
+    const message = await this.httpService.createHttpParams(payload);
+    return await this.httpService.post(`contact`, message);
   }
 }

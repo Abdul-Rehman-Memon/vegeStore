@@ -1,44 +1,42 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { environment } from "src/environments/environment";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class StoreService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
+  // getAllProducts = (page = 1, limit = 9) => {
+  //   return this.http.get(`${environment.baseApi}/products?_page=${page}&_limit=${limit}`);
+  // }
 
+  // getProductById = (id: number) => {
+  //   return this.http.get(`${environment.baseApi}/products/${id}`);
+  // }
 
-  getAllProducts = (page = 1, limit = 9) => {
-    return this.http.get(`${environment.baseApi}/products?_page=${page}&_limit=${limit}`);
-  }
+  // getCategories = () => {
+  //   return this.http.get(`${environment.baseApi}/categories`);
+  // }
 
-  getProductById = (id: number) => {
-    return this.http.get(`${environment.baseApi}/products/${id}`);
-  }
+  // getProductsByCategory = (category: string) => {
+  //   return this.http.get(`${environment.baseApi}/category/${category}`);
+  // }
 
-  getCategories = () => {
-    return this.http.get(`${environment.baseApi}/categories`);
-  }
+  // getProductsBySearch = (search: string) => {
+  //   return this.http.get(`${environment.baseApi}/products/search/${search}`);
+  // }
 
-  getProductsByCategory = (category: string) => {
-    return this.http.get(`${environment.baseApi}/category/${category}`);
-  }
+  // getProductsByPrice = (min: number, max: number) => {
+  //   return this.http.get(`${environment.baseApi}/products/price/${min}/${max}`);
+  // }
 
-  getProductsBySearch = (search: string) => {
-    return this.http.get(`${environment.baseApi}/products/search/${search}`);
-  }
+  // getProductsByRating = (rating: number) => {
+  //   return this.http.get(`${environment.baseApi}/products/rating/${rating}`);
+  // }
 
-  getProductsByPrice = (min: number, max: number) => {
-    return this.http.get(`${environment.baseApi}/products/price/${min}/${max}`);
-  }
-
-  getProductsByRating = (rating: number) => {
-    return this.http.get(`${environment.baseApi}/products/rating/${rating}`);
-  }
-
-  getProductsByDiscount = (discount: number) => {
-    return this.http.get(`${environment.baseApi}/products/discount/${discount}`);
-  }
+  // getProductsByDiscount = (discount: number) => {
+  //   return this.http.get(`${environment.baseApi}/products/discount/${discount}`);
+  // }
 }
