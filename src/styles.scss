@@ -2,3 +2,10 @@
 a{
   text-decoration: none;
 }
+
+.bg-profile{
+  background-image:url('./assets/img/profiles/bg-img.jpg') ;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
