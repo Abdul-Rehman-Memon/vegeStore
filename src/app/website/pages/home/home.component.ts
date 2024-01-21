@@ -1,5 +1,6 @@
 import { StoreService } from './../../service/store/store.service';
 import { Component } from '@angular/core';
+
 declare var $: any;
 @Component({
   selector: 'app-home',
