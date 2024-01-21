@@ -9,7 +9,6 @@ export class ProfileService {
 
   async signup(payload: any) {
     const data = this.http.createHttpParams(payload);
-
     return await this.http.post("auth/signup", data);
   }
 
@@ -17,4 +16,10 @@ export class ProfileService {
     const data = this.http.createHttpParams(payload);
     return await this.http.post("auth/signin", data);
   }
+
+  async signOut(payload: any) {
+    const data = this.http.createHttpParams(payload);
+    return await this.http.put("auth/signout", data);
+  }
+
 }

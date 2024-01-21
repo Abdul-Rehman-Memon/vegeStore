@@ -46,9 +46,9 @@
 </header> -->
 
 <header class="header">
-  <nav class="navbar navbar-expand-lg bg-white row header__menu">
+  <nav class="navbar navbar-expand-lg bg-white row ">
     <div class="container">
-      <a class="navbar-brand col-sm-6" href="#">
+      <a class="navbar-brand logoWrapper col-sm-6 "  href="#">
         <img src="assets/img/logo.png" class="logo" alt="" srcset="" />
       </a>
       <button
@@ -63,26 +63,26 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div
-        class="collapse navbar-collapse col-sm-6"
+        class="collapse navbar-collapse col-sm-6 justify-content-end d-flex"
         id="navbarSupportedContent"
       >
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
+          <li class="nav-item fw-bold">
             <a class="nav-link active text-success" aria-current="page" href="#"
               >Home</a
             >
           </li>
-          <li class="nav-item">
+          <li class="nav-item fw-bold">
             <a class="nav-link active" aria-current="page" routerLink="/shop"
               >Shop</a
             >
           </li>
-          <li class="nav-item">
+          <li class="nav-item fw-bold">
             <a class="nav-link active" aria-current="page" routerLink="/about"
               >About</a
             >
           </li>
-          <li class="nav-item">
+          <li class="nav-item fw-bold">
             <a
               class="nav-link active"
               aria-current="page"
@@ -92,15 +92,14 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="/login"
-              >Login</a
-            >
+            <button class="nav-link active btn mx-2 px-3 fx-bold signUpLogin" aria-current="page" routerLink="/login"
+              >Login</button>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="/signup"
-              >Signup</a
-            >
+            <button class="nav-link active btn px-3 signUpLogin" aria-current="page" routerLink="/signup"
+              >Signup</button>
+            
           </li>
         </ul>
       </div>
