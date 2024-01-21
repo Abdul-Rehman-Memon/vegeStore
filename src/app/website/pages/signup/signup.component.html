@@ -1,0 +1,84 @@
+<section>
+  <!-- <form [formGroup]="signupForm" (ngSubmit)="signup()">
+    <div class="row">
+      <div>
+        <input
+          type="text"
+          placeholder="First name"
+          formControlName="firstName"
+        />
+      </div>
+      <div>
+        <input type="text" placeholder="Last Name" formControlName="lastName" />
+      </div>
+      <div>
+        <input type="text" placeholder="Your Email" formControlName="email" />
+      </div>
+      <div>
+        <input type="text" placeholder="Your Phone" formControlName="phone" />
+      </div>
+      <div>
+        <input
+          type="text"
+          placeholder="Your Password"
+          formControlName="password"
+        />
+      </div>
+      <div class="col-lg-12 text-center">
+        <button type="submit" class="site-btn" [disabled]="!signupForm.valid">
+          Sign Up
+        </button>
+      </div>
+    </div>
+  </form> -->
+
+  <section>
+    <div class="loginContainer container d-flex justify-content-center">
+      <div class="row" style="margin: auto">
+        <div class="col-md-6 formWrapper">
+          <div class="wrapper">
+            <div class="title">Registration Form</div>
+            <form [formGroup]="signupForm" (ngSubmit)="signup()" action="#">
+              <div class="field">
+                <input formControlName="firstName" type="text" required />
+                <label>First Name</label>
+              </div>
+
+              <div class="field">
+                <input formControlName="lastName" type="text" required />
+                <label>Last Name</label>
+              </div>
+              <div class="field">
+                <input formControlName="email" type="text" required />
+                <label>Email Address</label>
+              </div>
+              <div class="field">
+                <input formControlName="phone" type="text" required />
+                <label>Phone No</label>
+              </div>
+              <div class="field">
+                <input formControlName="password" type="password" required />
+                <label>Password</label>
+              </div>
+
+              <div class="field">
+                <input
+                  [disabled]="!signupForm.valid"
+                  type="submit"
+                  value="Sign Up"
+                />
+              </div>
+              <div class="signup-link">
+                Already have an account. <a routerLink="/login">Login</a>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <img src="assets/img/hero/womenImg.png" alt="" srcset="" />
+        </div>
+      </div>
+    </div>
+    <!--  -->
+  </section>
+</section>

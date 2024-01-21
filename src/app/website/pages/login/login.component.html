@@ -1,0 +1,36 @@
+<section>
+  <div class="loginContainer container d-flex justify-content-center">
+    <div class="row" style="margin: auto">
+      <div class="col-md-6 formWrapper">
+        <div class="wrapper">
+          <div class="title">Login Form</div>
+          <form [formGroup]="signinForm" (ngSubmit)="signin()" action="#">
+            <div class="field">
+              <input formControlName="email" type="text" required />
+              <label>Email Address</label>
+            </div>
+            <div class="field">
+              <input formControlName="password" type="password" required />
+              <label>Password</label>
+            </div>
+
+            <div class="field">
+              <input
+                [disabled]="!signinForm.valid"
+                type="submit"
+                value="Login"
+              />
+            </div>
+            <div class="signup-link">
+              Not a member? <a routerLink="/signup">Signup now</a>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <img src="assets/img/hero/womenImg.png" alt="" srcset="" />
+      </div>
+    </div>
+  </div>
+  <!--  -->
+</section>

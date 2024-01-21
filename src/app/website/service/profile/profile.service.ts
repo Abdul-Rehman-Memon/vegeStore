@@ -1,9 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
+import { HttpService } from "../httpService/http.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ProfileService {
+  constructor(private http: HttpService) {}
 
-  constructor() { }
+  async signup(payload: any) {
+    const data = this.http.createHttpParams(payload);
+
+    return await this.http.post("auth/signup", data);
+  }
+
+  async signIn(payload: any) {
+    const data = this.http.createHttpParams(payload);
+    return await this.http.post("auth/signin", data);
+  }
 }

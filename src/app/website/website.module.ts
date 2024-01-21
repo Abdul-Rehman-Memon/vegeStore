@@ -20,6 +20,8 @@ import { ContactWidgetComponent } from "./components/contact-widget/contact-widg
 import { PostCardComponent } from "./components/post-card/post-card.component";
 import { BlogsComponent } from "./pages/blogs/blogs.component";
 import { ReactiveFormsModule } from "@angular/forms";
+import { LoginComponent } from './pages/login/login.component';
+import { SignupComponent } from './pages/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import { ReactiveFormsModule } from "@angular/forms";
     ContactWidgetComponent,
     PostCardComponent,
     BlogsComponent,
+    LoginComponent,
+    SignupComponent,
   ],
   imports: [CommonModule, HttpClientModule, RouterModule, ReactiveFormsModule],
 })

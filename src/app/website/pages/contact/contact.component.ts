@@ -59,6 +59,8 @@ export class ContactComponent {
     try {
       const data = this.contactform.value;
 
+      // {name:'',email:'',message:''}
+
       const response = await this.contact.createContact(data);
       console.log({ response });
 
