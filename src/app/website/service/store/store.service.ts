@@ -1,42 +1,28 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
+import { HttpService } from "../httpService/http.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class StoreService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpService) {}
 
-  // getAllProducts = (page = 1, limit = 9) => {
-  //   return this.http.get(`${environment.baseApi}/products?_page=${page}&_limit=${limit}`);
-  // }
+  async getProducts(payload?: any) {
+    const data = this.http.createHttpParams(payload);
+    return await this.http.get("product", data);
+  }
 
-  // getProductById = (id: number) => {
-  //   return this.http.get(`${environment.baseApi}/products/${id}`);
-  // }
+  async updateProducts(payload: any) {
+    return await this.http.put("product", payload);
+  }
 
-  // getCategories = () => {
-  //   return this.http.get(`${environment.baseApi}/categories`);
-  // }
+  async deleteProducts(payload: any) {
+    return await this.http.delete("product", payload);
+  }
 
-  // getProductsByCategory = (category: string) => {
-  //   return this.http.get(`${environment.baseApi}/category/${category}`);
-  // }
-
-  // getProductsBySearch = (search: string) => {
-  //   return this.http.get(`${environment.baseApi}/products/search/${search}`);
-  // }
-
-  // getProductsByPrice = (min: number, max: number) => {
-  //   return this.http.get(`${environment.baseApi}/products/price/${min}/${max}`);
-  // }
-
-  // getProductsByRating = (rating: number) => {
-  //   return this.http.get(`${environment.baseApi}/products/rating/${rating}`);
-  // }
-
-  // getProductsByDiscount = (discount: number) => {
-  //   return this.http.get(`${environment.baseApi}/products/discount/${discount}`);
-  // }
+  async addProducts(payload: any) {
+    return await this.http.post("product", payload);
+  }
 }

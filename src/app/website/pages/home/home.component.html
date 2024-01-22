@@ -1,25 +1,36 @@
-<section class="bannerContainer py-5  ">
+<section class="bannerContainer py-5">
   <!-- searchbar -->
   <form class="d-flex searchBox" role="search">
-    <input class="searchInput" type="text" name="" placeholder="Search"/>
+    <input class="searchInput" type="text" name="" placeholder="Search" />
     <button class="searchButton" href="#">
-<img src="assets/img/hero/searchIcon.png" alt="" srcset="">
+      <img src="assets/img/hero/searchIcon.png" alt="" srcset="" />
     </button>
   </form>
   <!--  -->
   <div class="container-fluid">
-    <div class="row" >
-      <div class="col-lg-6  d-flex align-items-center justify-content-center">
+    <div class="row">
+      <div class="col-lg-6 d-flex align-items-center justify-content-center">
         <div class="hero__text">
           <span>Organic and Fresh</span>
-          <h2 class="text">Vegetable </h2> 
-          <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. <br> Facere deleniti nemo cum asperiores aperiam cupiditate, <br> atque qui maxime autem quaerat tempore pariatur odit libero odio aut <br> itaque porro, voluptatum doloribus nesciunt molestiae? Placeat, quasi.</p>         
-          
+          <h2 class="text">Vegetable</h2>
+          <p class="text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. <br />
+            Facere deleniti nemo cum asperiores aperiam cupiditate, <br />
+            atque qui maxime autem quaerat tempore pariatur odit libero odio aut
+            <br />
+            itaque porro, voluptatum doloribus nesciunt molestiae? Placeat,
+            quasi.
+          </p>
+
           <a href="#" class="primary-btn">SHOP NOW</a>
         </div>
       </div>
       <div class="col-lg-6">
-      <img class="banner-img" src="../../../../assets/img/banner/vegBanner.png" alt="">
+        <img
+          class="banner-img"
+          src="../../../../assets/img/banner/vegBanner.png"
+          alt=""
+        />
       </div>
     </div>
   </div>
@@ -73,6 +84,25 @@
     </div>
   </div>
 </section>  -->
+
+<section>
+  <div class="container mt-3">
+    <form [formGroup]="filterForm" (ngSubmit)="submit()">
+      <div class="row">
+        <div class="col-lg-4">
+          <input type="text" formControlName="title" />
+        </div>
+        <div class="col-lg-4">
+          <input type="number" formControlName="price" />
+        </div>
+        <div class="col-lg-4">
+          <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
 <section class="featured spad">
   <div class="container">
     <div class="row">
@@ -80,213 +110,29 @@
         <div class="section-title">
           <h2>Featured Product</h2>
         </div>
-        <div class="featured__controls">
-          <ul>
-            <li class="active" data-filter="*">All</li>
-            <li data-filter=".oranges">Oranges</li>
-            <li data-filter=".fresh-meat">Fresh Meat</li>
-            <li data-filter=".vegetables">Vegetables</li>
-            <li data-filter=".fastfood">Fastfood</li>
-          </ul>
-        </div>
       </div>
     </div>
     <div class="row featured__filter">
-      <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
-        <div class="featured__item">
-          <div
-            class="featured__item__pic set-bg"
-            data-setbg="../../../../assets/img/featured/feature-1.jpg"
-          >
-            <ul class="featured__item__pic__hover">
-              <li>
-                <a href="#"><i class="fa fa-heart"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-retweet"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-shopping-cart"></i></a>
-              </li>
-            </ul>
-          </div>
-          <div class="featured__item__text">
-            <h6><a href="#">Fresh Meat</a></h6>
-            <h5>$30.00</h5>
+      <ng-container *ngFor="let product of products">
+        <div class="card" style="width: 18rem">
+          <img [src]="product.thumbnail" class="card-img-top" alt="..." />
+          <div class="card-body">
+            <div class="row">
+              <div class="col-6">{{ product.title }}</div>
+              <div class="col-3">1Kg</div>
+              <div class="col-3">{{ product.price + "$" }}</div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <button class="btn btn-primary">Add to cart</button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
-        <div class="featured__item">
-          <div
-            class="featured__item__pic set-bg"
-            data-setbg="../../../../assets/img/featured/feature-2.jpg"
-          >
-            <ul class="featured__item__pic__hover">
-              <li>
-                <a href="#"><i class="fa fa-heart"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-retweet"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-shopping-cart"></i></a>
-              </li>
-            </ul>
-          </div>
-          <div class="featured__item__text">
-            <h6><a href="#">Bananas</a></h6>
-            <h5>$30.00</h5>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
-        <div class="featured__item">
-          <div
-            class="featured__item__pic set-bg"
-            data-setbg="../../../../assets/img/featured/feature-3.jpg"
-          >
-            <ul class="featured__item__pic__hover">
-              <li>
-                <a href="#"><i class="fa fa-heart"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-retweet"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-shopping-cart"></i></a>
-              </li>
-            </ul>
-          </div>
-          <div class="featured__item__text">
-            <h6><a href="#">Citron</a></h6>
-            <h5>$30.00</h5>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
-        <div class="featured__item">
-          <div
-            class="featured__item__pic set-bg"
-            data-setbg="../../../../assets/img/featured/feature-4.jpg"
-          >
-            <ul class="featured__item__pic__hover">
-              <li>
-                <a href="#"><i class="fa fa-heart"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-retweet"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-shopping-cart"></i></a>
-              </li>
-            </ul>
-          </div>
-          <div class="featured__item__text">
-            <h6><a href="#">Watermelon</a></h6>
-            <h5>$30.00</h5>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-        <div class="featured__item">
-          <div
-            class="featured__item__pic set-bg"
-            data-setbg="../../../../assets/img/featured/feature-5.jpg"
-          >
-            <ul class="featured__item__pic__hover">
-              <li>
-                <a href="#"><i class="fa fa-heart"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-retweet"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-shopping-cart"></i></a>
-              </li>
-            </ul>
-          </div>
-          <div class="featured__item__text">
-            <h6><a href="#">Grapes</a></h6>
-            <h5>$30.00</h5>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
-        <div class="featured__item">
-          <div
-            class="featured__item__pic set-bg"
-            data-setbg="../../../../assets/img/featured/feature-6.jpg"
-          >
-            <ul class="featured__item__pic__hover">
-              <li>
-                <a href="#"><i class="fa fa-heart"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-retweet"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-shopping-cart"></i></a>
-              </li>
-            </ul>
-          </div>
-          <div class="featured__item__text">
-            <h6><a href="#">House Burger</a></h6>
-            <h5>$30.00</h5>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-        <div class="featured__item">
-          <div
-            class="featured__item__pic set-bg"
-            data-setbg="../../../../assets/img/featured/feature-7.jpg"
-          >
-            <ul class="featured__item__pic__hover">
-              <li>
-                <a href="#"><i class="fa fa-heart"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-retweet"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-shopping-cart"></i></a>
-              </li>
-            </ul>
-          </div>
-          <div class="featured__item__text">
-            <h6><a href="#">Mango</a></h6>
-            <h5>$30.00</h5>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
-        <div class="featured__item">
-          <div
-            class="featured__item__pic set-bg"
-            data-setbg="../../../../assets/img/featured/feature-8.jpg"
-          >
-            <ul class="featured__item__pic__hover">
-              <li>
-                <a href="#"><i class="fa fa-heart"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-retweet"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-shopping-cart"></i></a>
-              </li>
-            </ul>
-          </div>
-          <div class="featured__item__text">
-            <h6><a href="#">Apples</a></h6>
-            <h5>$30.00</h5>
-          </div>
-        </div>
-      </div>
+      </ng-container>
     </div>
   </div>
-</section> 
+</section>
 
 <!-- <div class="banner">
   <div class="container">
