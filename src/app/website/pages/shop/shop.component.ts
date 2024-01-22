@@ -14,7 +14,28 @@ export class ShopComponent {
   cart: any = [];
   filterForm: FormBuilder | any;
   totalPrice: number = 0;
-  products: any = [];
+  products: any = [
+    {
+      thubnail: "assets/img/product/product-1.jpg",
+      title: "Strawberry",
+      price: "10",
+    },
+    {
+      thubnail: "assets/img/product/product-1.jpg",
+      title: "Strawberry",
+      price: "10",
+    },
+    {
+      thubnail: "assets/img/product/product-1.jpg",
+      title: "Strawberry",
+      price: "10",
+    },
+    {
+      thubnail: "assets/img/product/product-1.jpg",
+      title: "Strawberry",
+      price: "10",
+    },
+  ];
 
   constructor(
     private store: StoreService,

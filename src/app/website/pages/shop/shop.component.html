@@ -57,9 +57,9 @@
             </div>
           </div>
         </div>
-        <div class="row">
+         <!-- <div class="row featured__filter d-flex align-items-center">
           <ng-container *ngFor="let product of products">
-            <div class="card" style="width: 18rem">
+            <div class="card mx-2 my-2 container-fluid border-1-solid col-sm-3"  >
               <img [src]="product.thumbnail" class="card-img-top" alt="..." />
               <div class="card-body">
                 <div class="row">
@@ -89,12 +89,44 @@
               </div>
             </div>
           </ng-container>
+        </div>  -->
+         <div class="row m-auto featured__filter d-flex  align-items-center">
+          <ng-container *ngFor="let product of products">
+            <div class="card mx-2 my-2 container-fluid border-1-solid" style="width: 16rem">
+              <img [src]="product.thumbnail" class="card-img-top" alt="..." />
+              <div class="card-body text-center">
+                <div class="productTitle">{{ product.title }}</div>
+                <div class="row d-flex justify-content-center pt-2">
+                  
+                  <div class="col-sm-6 text-end productQuantity">1Kg</div>
+                  <div class="col-sm-6 text-start">{{ product.price + "$" }}</div>
+                </div>
+
+                <div class="row p-3 m-2">
+                  <div class="col-12 d-flex flex-row justify-content-center ml-4">
+                    <button class="signBtn" (click)="updateQuantity(product, '-')">-</button>
+                    <p class="m-auto">{{ product.quantity }}</p>
+                    <button class="signBtn" (click)="updateQuantity(product, '+')">
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 d-flex justify-content-center align-items-center pt-3">
+                    <button class="btn btnShopNow" >
+                      Shop Now
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
         </div>
       </div>
       <!--  -->
       <div class="col-4">
-        <table>
-          <thead>
+        <table class="mb-5">
+          <thead class="tableHead">
             <tr>
               <th>
                 <p>Products</p>
@@ -135,7 +167,7 @@
         </table>
         <div class="row">
           <div class="col">
-            <button class="btn btn-primary" (click)="clearCart()">
+            <button class="btn btn-outline-success" style="border-color: #7fad39; color: #7fad39" (click)="clearCart()">
               Clear cart
             </button>
           </div>
@@ -143,7 +175,7 @@
             <p>Total: {{ totalPrice }}</p>
           </div>
           <div class="col">
-            <button class="btn btn-primary" (click)="checkout()">
+            <button class="btn btn-outline-success" style="border-color: #7fad39; color: #7fad39" (click)="checkout()">
               Checkout
             </button>
           </div>
