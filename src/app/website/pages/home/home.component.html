@@ -1,10 +1,10 @@
 <section class="bannerContainer py-5">
   <!-- searchbar -->
   <form class="d-flex searchBox" role="search">
-    <input class="searchInput" type="text" name="" placeholder="Search" />
+    <!-- <input class="searchInput" type="text" name="" placeholder="Search" />
     <button class="searchButton" href="#">
       <img src="assets/img/hero/searchIcon.png" alt="" srcset="" />
-    </button>
+    </button> -->
   </form>
   <!--  -->
   <div class="container-fluid">
@@ -22,15 +22,11 @@
             quasi.
           </p>
 
-          <a href="#" class="primary-btn">SHOP NOW</a>
+          <a (click)="route()" class="primary-btn">SHOP NOW</a>
         </div>
       </div>
       <div class="col-lg-6">
-        <img
-          class="banner-img"
-          src="../../../../assets/img/banner/vegBanner.png"
-          alt=""
-        />
+        <img class="banner-img" src="assets/img/banner/vegBanner.png" alt="" />
       </div>
     </div>
   </div>
@@ -124,7 +120,9 @@
             </div>
             <div class="row">
               <div class="col-12">
-                <button class="btn btn-primary">Add to cart</button>
+                <button class="btn btn-primary" (click)="route()">
+                  Shop Now
+                </button>
               </div>
             </div>
           </div>

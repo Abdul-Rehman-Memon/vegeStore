@@ -8,9 +8,11 @@ import {
 } from "@angular/common/http";
 import { catchError, Observable, throwError } from "rxjs";
 import { environment } from "src/environments/environment";
+import { ToastrService } from "ngx-toastr";
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
+  constructor(private toater: ToastrService) {}
   private baseUrl = `${environment.baseApi}/vegeStore/api/v1`;
 
   intercept(
@@ -30,7 +32,25 @@ export class TokenInterceptor implements HttpInterceptor {
         // headers: req.headers.set("Authorization", `${token}`),
       });
 
-      return next.handle(modifiedRequest);
+      return next.handle(modifiedRequest).pipe(
+        catchError((error: HttpErrorResponse) => {
+          // Handle errors here, you may want to log or display messages
+          let err = error?.error;
+          console.error("Error with:", err.error);
+          if (err?.error) {
+            this.toater.error(err.message);
+            // Handle specific error case
+            // console.error("Error with:", err.message);
+          }
+          // if (error?.message) {
+          //   this.toater.error(err.message);
+          //   // Handle general error case
+          //   // console.error("General error:", error.message);
+          // }
+          // Pass the error along to be caught by the calling code
+          return throwError(() => error);
+        }),
+      );
     } catch (err) {
       console.log({ err });
       return throwError(

@@ -2,6 +2,7 @@ import { FormBuilder } from "@angular/forms";
 import { StoreService } from "./../../service/store/store.service";
 import { Component } from "@angular/core";
 import { formateFilter } from "src/app/shared/functions";
+import { Router } from "@angular/router";
 
 declare var $: any;
 @Component({
@@ -35,7 +36,11 @@ export class HomeComponent {
     },
   ];
 
-  constructor(private store: StoreService, private formbuilder: FormBuilder) {}
+  constructor(
+    private store: StoreService,
+    private formbuilder: FormBuilder,
+    private router: Router,
+  ) {}
 
   // when page is loaded, this function is called
   ngOnInit() {
@@ -58,5 +63,9 @@ export class HomeComponent {
     let filters = this.filterForm.value;
     filters = formateFilter(filters);
     this.products = await this.store.getProducts(filters);
+  }
+
+  route() {
+    this.router.navigate(["/shop"]);
   }
 }

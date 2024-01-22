@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { ProfileService } from "../../service/profile/profile.service";
 import { FormBuilder, FormGroup } from "@angular/forms";
+import { ToastrService } from "ngx-toastr";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-signup",
@@ -10,7 +12,12 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 export class SignupComponent {
   signupForm: FormBuilder | any;
 
-  constructor(private formBuilder: FormBuilder, private auth: ProfileService) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private auth: ProfileService,
+    private toaster: ToastrService,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.signupForm = this.formBuilder.group({
@@ -22,10 +29,12 @@ export class SignupComponent {
     });
   }
 
-  signup() {
+  async signup() {
     const data = this.signupForm.value;
-    console.log({ data });
-    this.auth.signup(data);
-    console.log("pressed");
+    const response = await this.auth.signup(data);
+    if (response) {
+      this.toaster.success(" Sign Up Sccessfully ");
+      this.router.navigate(["login"]);
+    }
   }
 }

@@ -20,8 +20,11 @@ import { ContactWidgetComponent } from "./components/contact-widget/contact-widg
 import { PostCardComponent } from "./components/post-card/post-card.component";
 import { BlogsComponent } from "./pages/blogs/blogs.component";
 import { ReactiveFormsModule } from "@angular/forms";
-import { LoginComponent } from './pages/login/login.component';
-import { SignupComponent } from './pages/signup/signup.component';
+import { LoginComponent } from "./pages/login/login.component";
+import { SignupComponent } from "./pages/signup/signup.component";
+import { AddeditProductModalComponent } from "./modals/addedit-product-modal/addedit-product-modal.component";
+import { SharedModule } from "../shared/shared.module";
+import { ToastrModule } from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -44,8 +47,16 @@ import { SignupComponent } from './pages/signup/signup.component';
     BlogsComponent,
     LoginComponent,
     SignupComponent,
+    AddeditProductModalComponent,
   ],
-  imports: [CommonModule, HttpClientModule, RouterModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    RouterModule,
+    ReactiveFormsModule,
+    SharedModule,
+    ToastrModule.forRoot(),
+  ],
 })
 export class WebsiteModule {
   constructor() {

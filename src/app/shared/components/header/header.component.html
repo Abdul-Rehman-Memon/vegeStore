@@ -46,9 +46,9 @@
 </header> -->
 
 <header class="header">
-  <nav class="navbar navbar-expand-lg bg-white row ">
+  <nav class="navbar navbar-expand-lg bg-white row">
     <div class="container">
-      <a class="navbar-brand logoWrapper col-sm-6 "  href="#">
+      <a class="navbar-brand logoWrapper col-sm-6" href="#">
         <img src="assets/img/logo.png" class="logo" alt="" srcset="" />
       </a>
       <button
@@ -91,15 +91,35 @@
             >
           </li>
 
-          <li class="nav-item">
-            <button class="nav-link active btn mx-2 px-3 fx-bold signUpLogin" aria-current="page" routerLink="/login"
-              >Login</button>
+          <li class="nav-item" *ngIf="!token">
+            <button
+              class="nav-link active btn mx-2 px-3 fx-bold signUpLogin"
+              aria-current="page"
+              routerLink="/login"
+            >
+              Login
+            </button>
           </li>
 
-          <li class="nav-item">
-            <button class="nav-link active btn px-3 signUpLogin" aria-current="page" routerLink="/signup"
-              >Signup</button>
-            
+          <li class="nav-item" *ngIf="!token">
+            <button
+              class="nav-link active btn px-3 signUpLogin"
+              aria-current="page"
+              routerLink="/signup"
+            >
+              Signup
+            </button>
+          </li>
+
+          <li class="nav-item" *ngIf="token">
+            <button
+              class="nav-link active btn px-3 signUpLogin"
+              aria-current="page"
+              routerLink="/"
+              (click)="signout()"
+            >
+              SignOut
+            </button>
           </li>
         </ul>
       </div>
