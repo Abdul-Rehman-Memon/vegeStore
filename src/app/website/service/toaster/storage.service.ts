@@ -19,7 +19,11 @@ export class StorageService {
 
   getToken() {
     const fetchedData: any = localStorage.getItem("user");
-    return JSON.parse(fetchedData).token;
+    if (fetchedData) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   removeInStorage(payload: string) {
