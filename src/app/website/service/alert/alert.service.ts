@@ -1,13 +1,27 @@
 import { Injectable } from "@angular/core";
-import swal from "sweetalert";
+import { Router } from "@angular/router";
+import Swal from "sweetalert2";
+import { StorageService } from "../toaster/storage.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class AlertService {
-  constructor() {}
+  constructor(private router: Router, private storage: StorageService) {}
 
-  alert() {
-    swal("Good job!", "You clicked the button!", "success");
+  alert(): any {
+    Swal.fire({
+      title: "Login alert?",
+      text: "Please login to Continue!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#7fad39",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(["login"]);
+      }
+    });
   }
 }

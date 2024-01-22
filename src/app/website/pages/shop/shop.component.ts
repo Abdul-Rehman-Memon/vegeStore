@@ -2,6 +2,8 @@ import { Component, getPlatform } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { formateFilter } from "src/app/shared/functions";
 import { StoreService } from "src/app/website/service/store/store.service";
+import { AlertService } from "../../service/alert/alert.service";
+import { StorageService } from "../../service/toaster/storage.service";
 
 @Component({
   selector: "app-shop",
@@ -14,7 +16,12 @@ export class ShopComponent {
   totalPrice: number = 0;
   products: any = [];
 
-  constructor(private store: StoreService, private formbuilder: FormBuilder) {}
+  constructor(
+    private store: StoreService,
+    private formbuilder: FormBuilder,
+    private alert: AlertService,
+    private storage: StorageService,
+  ) {}
 
   ngOnInit() {
     this.initfiter();
@@ -96,10 +103,23 @@ export class ShopComponent {
   }
 
   checkout() {
-    console.log(this.cart);
+    const token = this.storage.getToken();
+    if (!token) {
+      this.alert.alert();
+
+      return;
+    } else {
+      console.log(this.cart);
+    }
   }
 
   addProduct() {
-    console.log(this.products);
+    const token = this.storage.getToken();
+    if (!token) {
+      this.alert.alert();
+
+      return;
+    } else {
+    }
   }
 }
