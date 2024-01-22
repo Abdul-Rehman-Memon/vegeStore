@@ -1,41 +1,12 @@
 <section class="bg-profile">
-  <!-- <form [formGroup]="signupForm" (ngSubmit)="signup()">
-    <div class="row">
-      <div>
-        <input
-          type="text"
-          placeholder="First name"
-          formControlName="firstName"
-        />
-      </div>
-      <div>
-        <input type="text" placeholder="Last Name" formControlName="lastName" />
-      </div>
-      <div>
-        <input type="text" placeholder="Your Email" formControlName="email" />
-      </div>
-      <div>
-        <input type="text" placeholder="Your Phone" formControlName="phone" />
-      </div>
-      <div>
-        <input
-          type="text"
-          placeholder="Your Password"
-          formControlName="password"
-        />
-      </div>
-      <div class="col-lg-12 text-center">
-        <button type="submit" class="site-btn" [disabled]="!signupForm.valid">
-          Sign Up
-        </button>
-      </div>
-    </div>
-  </form> -->
 
-  <section style="background-color: rgba(255, 255, 255, 0.3)">
-    <div class="loginContainer container d-flex justify-content-center">
-      <div class="row" style="margin: auto">
-        <div class="col-md-6 formWrapper">
+    <div class="loginContainer  d-flex justify-content-center align-items-center">
+      <div class="bgImagewrapper">
+        <img src="assets/img/banner/vegBackGround.png" class="bgImage" alt=""> 
+      </div>
+      <!-- formWrapper -->
+     
+        <div class="formWrapper">
           <div class="wrapper">
             <div class="title">Registration Form</div>
             <form [formGroup]="signupForm" (ngSubmit)="signup()" action="#">
@@ -109,11 +80,9 @@
             </form>
           </div>
         </div>
-        <div class="col-md-6">
-          <img src="assets/img/hero/womenImg.png" alt="" srcset="" />
-        </div>
+        
       </div>
-    </div>
+    
     <!--  -->
   </section>
-</section>
+

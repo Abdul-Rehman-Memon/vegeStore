@@ -81,23 +81,7 @@
   </div>
 </section>  -->
 
-<section>
-  <div class="container mt-3">
-    <form [formGroup]="filterForm" (ngSubmit)="submit()">
-      <div class="row">
-        <div class="col-lg-4">
-          <input type="text" formControlName="title" />
-        </div>
-        <div class="col-lg-4">
-          <input type="number" formControlName="price" />
-        </div>
-        <div class="col-lg-4">
-          <button class="btn btn-primary" type="submit">Search</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</section>
+
 
 <section class="featured spad">
   <div class="container">
@@ -106,21 +90,39 @@
         <div class="section-title">
           <h2>Featured Product</h2>
         </div>
-      </div>
+      </div>  
     </div>
-    <div class="row featured__filter">
+    <section>
+      <div class="container mb-5 w-75">
+        <form [formGroup]="filterForm" (ngSubmit)="submit()">
+          <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-lg-5  d-flex align-items-center justify-content-end ">
+              <input type="text" placeholder="Filter by Title" formControlName="title" class="inputFields" />
+            </div>
+            <div class="col-lg-4">
+              <input type="number" placeholder="Filter by Price" formControlName="price" class="inputFields" />
+            </div>
+            <div class="col-lg-3 ">
+              <button class="btn btnSearch btnShopNow" type="submit">Search</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+    <div class="row featured__filter d-flex justify-content-center align-items-center">
       <ng-container *ngFor="let product of products">
-        <div class="card" style="width: 18rem">
+        <div class="card mx-2 my-2 container-fluid border-1-solid" style="width: 16rem">
           <img [src]="product.thumbnail" class="card-img-top" alt="..." />
-          <div class="card-body">
-            <div class="row">
-              <div class="col-6">{{ product.title }}</div>
-              <div class="col-3">1Kg</div>
-              <div class="col-3">{{ product.price + "$" }}</div>
+          <div class="card-body text-center">
+            <div class="productTitle">{{ product.title }}</div>
+            <div class="row d-flex justify-content-center pt-2">
+              
+              <div class="col-sm-6 text-end productQuantity">1Kg</div>
+              <div class="col-sm-6 text-start">{{ product.price + "$" }}</div>
             </div>
             <div class="row">
-              <div class="col-12">
-                <button class="btn btn-primary" (click)="route()">
+              <div class="col-12 d-flex justify-content-center align-items-center pt-3">
+                <button class="btn btnShopNow" (click)="route()">
                   Shop Now
                 </button>
               </div>

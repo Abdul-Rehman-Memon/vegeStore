@@ -46,27 +46,29 @@
 </header> -->
 
 <header class="header">
-  <nav class="navbar navbar-expand-lg bg-white row">
-    <div class="container">
-      <a class="navbar-brand logoWrapper col-sm-6" href="#">
-        <img src="assets/img/logo.png" class="logo" alt="" srcset="" />
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <nav class="navbar navbar-expand-lg bg-white w-100 ">
+    <div class="container row">
+      <div class="col-sm-6 logoWrapper container ml-5">
+        <a class="navbar-brand" href="#">
+          <img src="assets/img/logo.png" class="logo" alt="" srcset="" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
       <div
-        class="collapse navbar-collapse col-sm-6 justify-content-end d-flex"
+        class="collapse navbar-collapse ml-9 col-sm-6 navItemsWrapper justify-content-end d-flex"
         id="navbarSupportedContent"
       >
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-flex-end d-flex">
           <li class="nav-item fw-bold">
             <a class="nav-link active text-success" aria-current="page" href="#"
               >Home</a
@@ -78,7 +80,7 @@
             >
           </li>
           <li class="nav-item fw-bold">
-            <a class="nav-link active" aria-current="page" routerLink="/about"
+            <a class="nav-link active" aria-current="page" routerLink="/about-us"
               >About</a
             >
           </li>
