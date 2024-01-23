@@ -1,9 +1,11 @@
-import { Component, getPlatform } from "@angular/core";
-import { FormBuilder } from "@angular/forms";
+import { Component, ElementRef, ViewChild, getPlatform } from "@angular/core";
+import { FormBuilder, Validators } from "@angular/forms";
 import { formateFilter } from "src/app/shared/functions";
 import { StoreService } from "src/app/website/service/store/store.service";
 import { AlertService } from "../../service/alert/alert.service";
 import { StorageService } from "../../service/toaster/storage.service";
+import { ToastrService } from "ngx-toastr";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
   selector: "app-shop",
@@ -11,42 +13,66 @@ import { StorageService } from "../../service/toaster/storage.service";
   styleUrls: ["./shop.component.scss"],
 })
 export class ShopComponent {
+  @ViewChild("fileInput") fileInput: ElementRef | any;
   cart: any = [];
+  productForm: any;
   filterForm: FormBuilder | any;
   totalPrice: number = 0;
   products: any = [
     {
-      thubnail: "assets/img/product/product-1.jpg",
+      thumbnail: "assets/img/product/product-1.jpg",
       title: "Strawberry",
+      quantity: 1,
       price: "10",
     },
     {
-      thubnail: "assets/img/product/product-1.jpg",
+      thumbnail: "assets/img/product/product-1.jpg",
       title: "Strawberry",
+      quantity: 1,
       price: "10",
     },
     {
-      thubnail: "assets/img/product/product-1.jpg",
+      thumbnail: "assets/img/product/product-1.jpg",
       title: "Strawberry",
+      quantity: 1,
       price: "10",
     },
     {
-      thubnail: "assets/img/product/product-1.jpg",
+      thumbnail: "assets/img/product/product-1.jpg",
       title: "Strawberry",
+      quantity: 1,
       price: "10",
     },
   ];
+  totalQuantity: any = 0;
+  token: boolean | any;
+  uploadFile: any;
+  photo: any;
 
   constructor(
     private store: StoreService,
     private formbuilder: FormBuilder,
     private alert: AlertService,
     private storage: StorageService,
+    private toaster: ToastrService,
+    private sanitizer: DomSanitizer,
   ) {}
 
   ngOnInit() {
+    this.getToken();
     this.initfiter();
     this.getProducts();
+    this.initProductForm();
+  }
+  initProductForm() {
+    this.productForm = this.formbuilder.group({
+      title: [this.uploadFile, Validators.required],
+      price: ["", Validators.required],
+      // thumbnail: ["", Validators.required],
+    });
+  }
+  getToken() {
+    this.token = this.storage.getToken();
   }
 
   initfiter() {
@@ -64,32 +90,42 @@ export class ShopComponent {
     let filters = this.filterForm.value;
     filters = formateFilter(filters);
     this.products = (await this.store.getProducts(filters)).map((d: any) => {
+      const uint8Array = new Uint8Array(d.thumbnail.data);
+
+      // Create a Blob from the Uint8Array
+      const blob = new Blob([uint8Array], { type: d.thumbnail.type });
+
+      // Create a data URL for the Blob
+      const blobUrl = this.sanitizer.bypassSecurityTrustUrl(
+        URL.createObjectURL(blob),
+      );
+      console.log({ blobUrl });
       return {
         id: d.id,
-        thumbnail: d.thumbnail,
+        thumbnail: blobUrl,
         title: d.title,
         price: d.price,
-        quantity: 1,
+        quantity: "",
         kgs: "1kg",
       };
     });
   }
 
-  updateQuantity(product: any, sign: string) {
+  updateQuantity(product: any, value: any) {
     this.products = this.products.map((d: any) => {
-      console.log(d.id, product.id);
       if (d.id === product.id) {
-        const updatedProdct = {
+        const updatedProduct = {
           ...d,
-          quantity: sign === "+" ? +d.quantity + 1 : +d.quantity - 1,
+          quantity: value.target.value,
         };
-        if (updatedProdct.quantity > 0) {
-          return updatedProdct;
+
+        // Check if the updated quantity is greater than 0
+        if (updatedProduct.quantity > 0) {
+          return updatedProduct;
         } else {
-          console.log("can't be less than 0");
           return {
             ...d,
-            quantity: 1,
+            quantity: "",
           };
         }
       } else {
@@ -99,6 +135,10 @@ export class ShopComponent {
   }
 
   addtoCart(product: any) {
+    if (!product.quantity) {
+      this.toaster.error("Please enter quantity");
+      return;
+    }
     this.cart.push({
       ...product,
       totalPrice: +product.price * +product.quantity,
@@ -108,12 +148,17 @@ export class ShopComponent {
       (acc: any, d: any) => acc + d.totalPrice,
       0,
     );
+    this.totalQuantity = this.cart.reduce(
+      (acc: any, d: any) => acc + d.quantity,
+      0,
+    );
   }
 
   removeFromCart(cartItem: any) {
     this.cart = this.cart.filter((d: any) => {
       if (d.id === cartItem.id) {
         this.totalPrice = this.totalPrice - d.totalPrice;
+        this.totalQuantity = this.totalQuantity - d.quantity;
       }
       return d.id !== cartItem.id;
     });
@@ -121,11 +166,12 @@ export class ShopComponent {
 
   clearCart() {
     this.cart = [];
+    this.totalQuantity = 0;
+    this.totalPrice = 0;
   }
 
   checkout() {
-    const token = this.storage.getToken();
-    if (!token) {
+    if (!this.token) {
       this.alert.alert();
 
       return;
@@ -134,13 +180,67 @@ export class ShopComponent {
     }
   }
 
-  addProduct() {
-    const token = this.storage.getToken();
-    if (!token) {
+  async addProduct() {
+    if (!this.token) {
       this.alert.alert();
 
       return;
     } else {
+      const id = this.storage.getInStorage("user").id;
+
+      const payload: any = {
+        title: this.productForm.value.title,
+        price: this.productForm.value.price.toString(),
+        thumbnail: this.uploadFile,
+        userId: id,
+      };
+      await this.store.addProducts(payload);
+      this.getProducts();
     }
+  }
+
+  editProduct(data: any) {
+    console.log({ data });
+  }
+
+  async deleteProduct(data: any) {
+    await this.store.deleteProducts({ id: data.id });
+    this.getProducts();
+    this.clearCart();
+  }
+
+  readURL(event: any) {
+    const maxWidth = 512;
+    const maxHeight = 512;
+
+    let file = event.target.files;
+    if (file.length > 1) {
+      this.toaster.error("Please select exactly one image.");
+      return;
+    } else {
+      file = file[0];
+    }
+    var imageReader = new FileReader();
+    imageReader.readAsDataURL(file);
+
+    imageReader.onload = (event: any) => {
+      const img = new Image();
+      img.src = event.target.result;
+      img.onload = () => {
+        if (img.width > maxWidth || img.height > maxHeight) {
+          this.toaster.error(
+            `Image dimensions should not exceed ${maxWidth}x${maxHeight}.`,
+          );
+          return;
+        } else {
+          this.uploadFile = file;
+          this.photo = img.src;
+        }
+      };
+    };
+  }
+
+  triggerFileUpload() {
+    this.fileInput.nativeElement.click();
   }
 }

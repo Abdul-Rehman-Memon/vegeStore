@@ -39,15 +39,12 @@ export class TokenInterceptor implements HttpInterceptor {
           console.error("Error with:", err.error);
           if (err?.error) {
             this.toater.error(err.message);
-            // Handle specific error case
-            // console.error("Error with:", err.message);
+            return throwError(() => error);
           }
-          // if (error?.message) {
-          //   this.toater.error(err.message);
-          //   // Handle general error case
-          //   // console.error("General error:", error.message);
-          // }
-          // Pass the error along to be caught by the calling code
+          if (err?.message) {
+            this.toater.error(err.message);
+            return throwError(() => error);
+          }
           return throwError(() => error);
         }),
       );

@@ -1,186 +1,301 @@
-<section class="mt-4">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-8">
+<app-header></app-header>
+<div class="container-fluid" style="min-height: 65vh">
+  <div class="row">
+    <div class="col-md-8">
+      <form [formGroup]="filterForm" (ngSubmit)="submit()">
         <div class="row">
-          <div class="col-12">
-            <div class="container mt-3">
-              <!-- <form [formGroup]="filterForm" (ngSubmit)="submit()">
-                <div class="row">
-                  <div class="col-lg-4">
-                    <input type="text" formControlName="title" />
-                  </div>
-                  <div class="col-lg-4">
-                    <input type="number" formControlName="price" />
-                  </div>
-                  <div class="col-lg-4">
-                    <button class="btn btn-primary" type="submit">
-                      Search
-                    </button>
-                    <button
-                      class="btn btn-primary"
-                      (click)="addProduct()"
-                      type="button"
-                    >
-                      Add Products
-                    </button>
-                  </div>
-                </div>
-              </form> -->
-              <section>
-                <div class="container-fluid mb-5">
-                  <form [formGroup]="filterForm" (ngSubmit)="submit()">
-                    <div class="row d-flex justify-content-center align-items-center">
-                      <div class="col-lg-4  d-flex align-items-center justify-content-end ">
-                        <input type="text" placeholder="Filter by Title" formControlName="title" class="inputFields w-100" />
-                      </div>
-                      <div class="col-lg-4">
-                        <input type="number" placeholder="Filter by Price" formControlName="price" class="inputFields w-100" />
-                      </div>
-                      <div class="col-lg-2">
-                        <button class="btn btnSearch btnShopNow w-100" type="submit">Search</button>
-                      </div>
-                        <div class="col-lg-2 " style="padding: 0 !important;">
-
-                          <button
-                      class="btn btnSearch btnAddProduct w-100"
-                      (click)="addProduct()"
-                      type="button"
-                    >
-                      Add Products
-                    </button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </section>
-            </div>
+          <div class="col-md-4">
+            <input
+              type="text"
+              placeholder="Filter by Title"
+              formControlName="title"
+              class="inputFields w-100"
+            />
+          </div>
+          <div class="col-md-4">
+            <input
+              type="number"
+              placeholder="Filter by Price"
+              formControlName="price"
+              class="inputFields w-100"
+            />
+          </div>
+          <div class="col-md-4">
+            <button
+              class="btn btnSearch btnShopNow float-start w-50"
+              type="submit"
+            >
+              Search
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary w-50"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              class="btn btnSearch btnAddProduct float-end"
+            >
+              Add Products
+            </button>
           </div>
         </div>
-         <!-- <div class="row featured__filter d-flex align-items-center">
-          <ng-container *ngFor="let product of products">
-            <div class="card mx-2 my-2 container-fluid border-1-solid col-sm-3"  >
+      </form>
+      <div class="row">
+        <ng-container *ngFor="let product of products">
+          <div class="col-md-4">
+            <div
+              class="card my-2 border-1-solid"
+              style="border-color: #7fad39 !important"
+            >
               <img [src]="product.thumbnail" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-6">{{ product.title }}</div>
-                  <div class="col-3">{{ product.kgs }}</div>
-                  <div class="col-3">{{ product.price + "$" }}</div>
-                </div>
-                <div class="row">
-                  <div class="col-12 d-flex flex-row justify-content-center">
-                    <button (click)="updateQuantity(product, '-')">-</button>
-                    <p class="w-25 text-center">{{ product.quantity }}</p>
-                    <button (click)="updateQuantity(product, '+')" class="">
-                      +
-                    </button>
+              <div class="card-body text-center">
+                <div class="row d-flex justify-content-center">
+                  <div class="productTitle col-sm-6 text-start">
+                    {{ product.title }}
+                  </div>
+                  <!-- <div class="col-sm-6 text-end productQuantity">1Kg</div> -->
+                  <div class="col-sm-6 text-end">
+                    {{ product.price + "$ per Kg" }}
                   </div>
                 </div>
+
                 <div class="row">
-                  <div class="col-12 d-flex flex-row justify-content-center">
+                  <div class="col-6 d-flex flex-row justify-content-center">
+                    <input
+                      type="number"
+                      class="form-control form-control-sm w-100"
+                      placeholder="Quan: in KGs"
+                      [value]="product.quantity"
+                      (keyup)="updateQuantity(product, $event)"
+                    />
+                  </div>
+                  <div class="col-6 d-flex flex-row justify-content-center">
                     <button
-                      class="btn btn-primary"
+                      class="btn btnShopNow btn-sm w-100"
                       (click)="addtoCart(product)"
                     >
                       Add to cart
                     </button>
                   </div>
                 </div>
-              </div>
-            </div>
-          </ng-container>
-        </div>  -->
-         <div class="row m-auto featured__filter d-flex  align-items-center">
-          <ng-container *ngFor="let product of products">
-            <div class="card mx-2 my-2 container-fluid border-1-solid" style="width: 16rem">
-              <img [src]="product.thumbnail" class="card-img-top" alt="..." />
-              <div class="card-body text-center">
-                <div class="productTitle">{{ product.title }}</div>
-                <div class="row d-flex justify-content-center pt-2">
-                  
-                  <div class="col-sm-6 text-end productQuantity">1Kg</div>
-                  <div class="col-sm-6 text-start">{{ product.price + "$" }}</div>
-                </div>
-
-                <div class="row p-3 m-2">
-                  <div class="col-12 d-flex flex-row justify-content-center ml-4">
-                    <button class="signBtn" (click)="updateQuantity(product, '-')">-</button>
-                    <p class="m-auto">{{ product.quantity }}</p>
-                    <button class="signBtn" (click)="updateQuantity(product, '+')">
-                      +
+                <div class="row" *ngIf="token">
+                  <div class="col-12">
+                    <button
+                      class="btn btn-sm float-end"
+                      (click)="deleteProduct(product)"
+                    >
+                      <img
+                        style="margin-top: 2px"
+                        src="../../../../assets/img/delete.svg"
+                        alt=""
+                        height="33px"
+                      />
                     </button>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-12 d-flex justify-content-center align-items-center pt-3">
-                    <button class="btn btnShopNow" >
-                      Shop Now
+                    <button
+                      class="btn btn-sm float-end"
+                      (click)="editProduct(product)"
+                    >
+                      <img
+                        style="margin-top: 4px !important"
+                        src="../../../../assets/img/edit.svg"
+                        alt=""
+                        height="33px"
+                      />
                     </button>
                   </div>
                 </div>
               </div>
             </div>
-          </ng-container>
-        </div>
+          </div>
+        </ng-container>
       </div>
-      <!--  -->
-      <div class="col-4">
-        <table class="mb-5">
-          <thead class="tableHead">
-            <tr>
-              <th>
-                <p>Products</p>
-              </th>
-              <th>
-                <p>Quantity</p>
-              </th>
-              <th>
-                <p>Price</p>
-              </th>
-              <th>
-                <p>Total Price</p>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of cart">
-              <td>
-                <p>{{ item.title }}</p>
-              </td>
-              <td>
-                <p>{{ item.quantity }}</p>
-              </td>
-              <td>
-                <p>{{ item.price }}</p>
-              </td>
-              <td>
-                <p>{{ item.totalPrice }}</p>
-              </td>
-              <td>
-                <button class="btn btn-danger" (click)="removeFromCart(item)">
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <!-- Add more rows as needed -->
-          </tbody>
-        </table>
-        <div class="row">
-          <div class="col">
-            <button class="btn btn-outline-success" style="border-color: #7fad39; color: #7fad39" (click)="clearCart()">
-              Clear cart
-            </button>
-          </div>
-          <div class="col">
-            <p>Total: {{ totalPrice }}</p>
-          </div>
-          <div class="col">
-            <button class="btn btn-outline-success" style="border-color: #7fad39; color: #7fad39" (click)="checkout()">
-              Checkout
-            </button>
-          </div>
+    </div>
+    <div class="col-md-4">
+      <table class="mb-2 w-100" style="border-collapse: separate">
+        <thead>
+          <tr style="border-bottom: 2px solid #096a2e !important">
+            <th>
+              <p>Products</p>
+            </th>
+            <th>
+              <p>Quantity</p>
+            </th>
+            <th>
+              <p>Price</p>
+            </th>
+            <th>
+              <p>Total Price</p>
+            </th>
+            <th>
+              <p>Action</p>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let item of cart">
+            <td>
+              <p>{{ item.title }}</p>
+            </td>
+            <td>
+              <p>{{ item.quantity }}</p>
+            </td>
+            <td>
+              <p>{{ item.price }}</p>
+            </td>
+            <td>
+              <p>{{ item.totalPrice }}</p>
+            </td>
+            <td>
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="removeFromCart(item)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>T: Quantity</p>
+            </td>
+            <td>
+              <p>
+                {{ totalQuantity }}
+              </p>
+            </td>
+            <td>
+              <p>T: Price</p>
+            </td>
+            <td>
+              <p>
+                {{ totalPrice }}
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="row">
+        <div class="col-6"></div>
+        <div class="col-6">
+          <button
+            class="btn btn-sm float-end"
+            style="
+              border-color: #7fad39;
+              color: #7fad39;
+              font-weight: 600;
+              border: 1.5px solid #7fad39;
+            "
+            (click)="checkout()"
+          >
+            Order
+          </button>
+          <button
+            class="btn btn-sm mx-1 float-end"
+            style="
+              border-color: #7fad39;
+              color: #7fad39;
+              font-weight: 600;
+              border: 1.5px solid #7fad39;
+            "
+            (click)="clearCart()"
+          >
+            Cancel
+          </button>
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>
+
+<app-footer></app-footer>
+
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content p-2">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Product</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form action="" [formGroup]="productForm">
+        <div class="row">
+          <div class="col-12 d-flex flex-row justify-content-center">
+            <img
+              [src]="photo || 'assets/img/product/product-1.jpg'"
+              alt=""
+              (change)="readURL($event)"
+            />
+          </div>
+          <div class="col-12" style="display: none">
+            <input
+              (change)="readURL($event)"
+              type="file"
+              class="form-control"
+              #fileInput
+              placeholder="Image URL"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 mt-2">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Title"
+              formControlName="title"
+            />
+          </div>
+          <div class="col-12 mt-2">
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Price"
+              formControlName="price"
+            />
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btnSearch btn-sm float-start"
+          style="background-color: #7fad39; color: #fff"
+          (click)="triggerFileUpload()"
+        >
+          Upload Image
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+          data-bs-dismiss="modal"
+        >
+          Cancel
+        </button>
+        <!-- [disabled]="!productForm.valid" -->
+        <button
+          type="button"
+          class="btn btnSearch btn-sm"
+          (click)="addProduct()"
+          data-bs-dismiss="modal"
+          style="background-color: #7fad39; color: #fff"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

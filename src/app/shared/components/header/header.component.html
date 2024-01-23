@@ -1,54 +1,16 @@
-<!-- <header class="header">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-1">
-        <div class="header__logo">
-          <a href="./index.html">
-            <img class="logo" src="./../../../../assets/img/logo.png" alt="" />
-          </a>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <nav class="header__menu">
-          <ul>
-            <li class="active"><a href="./index.html">Home</a></li>
-            <li>
-              <a routerLink="/shop">Shop</a>
-            </li>
-
-            <li><a routerLink="/contact-us">Contact</a></li>
-            <li><a routerLink="/about">About Us</a></li>
-          </ul>
-        </nav>
-      </div>
-      <div class="col-md-5">
-         <nav class="header__menu">
-          <ul>
-            <div class="hero__search__form">
-              <form action="#">
-                <div class="hero__search__categories">
-                  All Categories
-                  <span class="arrow_carrot-down"></span>
-                </div>
-                <input type="text" placeholder="What do yo u need?" />
-                <button type="submit" class="site-btn">SEARCH</button>
-              </form>
-            </div>
-          </ul>
-        </nav> 
-      </div>
-      
+<!-- <div class="container-fluid">
+  <div class="row">
+    <div class="col-4">
+      <a class="navbar-brand" href="#">
+        <img src="assets/img/logo.png" class="logo" alt="" srcset="" />
+      </a>
     </div>
-    <div class="humberger__open">
-      <i class="fa fa-bars"></i>
-    </div>
+    <div class="col-8"></div>
   </div>
-</header> -->
-
-<header class="header">
-  <nav class="navbar navbar-expand-lg bg-white w-100 ">
-    <div class="container row">
-      <div class="col-sm-6 logoWrapper container ml-5">
+</div> -->
+<!-- <nav class="navbar navbar-expand-lg bg-white w-100">
+    <div class="row">
+      <div class="col-sm-6 logoWrapper ml-5">
         <a class="navbar-brand" href="#">
           <img src="assets/img/logo.png" class="logo" alt="" srcset="" />
         </a>
@@ -68,25 +30,36 @@
         class="collapse navbar-collapse ml-9 col-sm-6 navItemsWrapper justify-content-end d-flex"
         id="navbarSupportedContent"
       >
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-flex-end d-flex">
+        <ul
+          class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-flex-end d-flex"
+        >
           <li class="nav-item fw-bold">
-            <a class="nav-link active text-success" aria-current="page" href="#"
+            <a
+              class="nav-link navLi active text-success"
+              aria-current="page"
+              href="#"
               >Home</a
             >
           </li>
           <li class="nav-item fw-bold">
-            <a class="nav-link active" aria-current="page" routerLink="/shop"
+            <a
+              class="nav-link navLi active"
+              aria-current="page"
+              routerLink="/shop"
               >Shop</a
             >
           </li>
           <li class="nav-item fw-bold">
-            <a class="nav-link active" aria-current="page" routerLink="/about-us"
+            <a
+              class="nav-link navLi active"
+              aria-current="page"
+              routerLink="/about-us"
               >About</a
             >
           </li>
           <li class="nav-item fw-bold">
             <a
-              class="nav-link active"
+              class="nav-link navLi active"
               aria-current="page"
               routerLink="/contact-us"
               >Contact Us</a
@@ -95,7 +68,7 @@
 
           <li class="nav-item" *ngIf="!token">
             <button
-              class="nav-link active btn mx-2 px-3 fx-bold signUpLogin"
+              class="btn btn-sm mx-2 btn-success navbarBtn"
               aria-current="page"
               routerLink="/login"
             >
@@ -105,7 +78,7 @@
 
           <li class="nav-item" *ngIf="!token">
             <button
-              class="nav-link active btn px-3 signUpLogin"
+              class="btn btn-sm mx-2 btn-success navbarBtn"
               aria-current="page"
               routerLink="/signup"
             >
@@ -115,7 +88,7 @@
 
           <li class="nav-item" *ngIf="token">
             <button
-              class="nav-link active btn px-3 signUpLogin"
+              class="btn btn-sm btn-success mx-2 navbarBtn"
               aria-current="page"
               routerLink="/"
               (click)="signout()"
@@ -126,5 +99,93 @@
         </ul>
       </div>
     </div>
-  </nav>
-</header>
+  </nav>  -->
+<!-- </header> -->
+
+<!-- style="width: auto !important; height: 5rem !important" -->
+<nav class="navbar navbar-expand-lg">
+  <a class="navbar-brand" href="#">
+    <img
+      src="assets/img/logo.png"
+      height="60px"
+      alt=""
+      srcset=""
+      style="margin-left: 1rem !important"
+    />
+  </a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNavDropdown"
+    aria-controls="navbarNavDropdown"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item fw-bold">
+        <a
+          class="nav-link navLi active text-success"
+          aria-current="page"
+          routerLink="/"
+          >Home</a
+        >
+      </li>
+      <li class="nav-item fw-bold">
+        <a class="nav-link navLi active" aria-current="page" routerLink="/shop"
+          >Shop</a
+        >
+      </li>
+      <li class="nav-item fw-bold">
+        <a
+          class="nav-link navLi active"
+          aria-current="page"
+          routerLink="/about-us"
+          >About</a
+        >
+      </li>
+      <li class="nav-item fw-bold">
+        <a
+          class="nav-link navLi active"
+          aria-current="page"
+          routerLink="/contact-us"
+          >Contact Us</a
+        >
+      </li>
+
+      <li class="nav-item" *ngIf="!token">
+        <button
+          class="btn btn-sm mx-2 btn-success navbarBtn"
+          aria-current="page"
+          routerLink="/login"
+        >
+          Login
+        </button>
+      </li>
+
+      <li class="nav-item" *ngIf="!token">
+        <button
+          class="btn btn-sm mx-2 btn-success navbarBtn"
+          aria-current="page"
+          routerLink="/signup"
+        >
+          Signup
+        </button>
+      </li>
+
+      <li class="nav-item" *ngIf="token">
+        <button
+          class="btn btn-sm btn-success mx-2 navbarBtn"
+          aria-current="page"
+          routerLink="/"
+          (click)="signout()"
+        >
+          SignOut
+        </button>
+      </li>
+    </ul>
+  </div>
+</nav>

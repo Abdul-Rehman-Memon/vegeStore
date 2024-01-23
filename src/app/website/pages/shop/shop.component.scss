@@ -35,13 +35,7 @@
 
 }
 .tableHead{
-
-    // background-color: #7fad39;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-    border-bottom: .2rem solid #7fad39;
-    // border-radius:10px ;
+    border-bottom: 0.2rem solid #7fad39; 
 
 }
 table{
@@ -49,12 +43,10 @@ table{
     border-radius: 1rem;
 }
 p{
-    // margin-left: 2rem;
-    font-weight: 600;
-    // color:white;
-    padding: 0 1rem;
-    padding-top:1rem ;
-
+    padding: 0 5px;
+    padding-top: 0.5rem;
+    text-align: center;
+    font-size: 15px;
 }
 .signBtn{
     width: 2rem;

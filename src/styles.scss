@@ -8,4 +8,13 @@ a{
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+
+  .swal2-default-outline:focus{
+    box-shadow: none !important;
+  }}
+
+  input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
