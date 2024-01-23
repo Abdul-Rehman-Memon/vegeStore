@@ -16,7 +16,18 @@ export class StoreService {
   }
 
   async updateProducts(payload: any) {
-    return await this.http.put("product", payload);
+    const data: any = {};
+    if (payload.thumbnail) {
+      data.thumbnail = payload.thumbnail;
+    }
+    if (payload.title) {
+      data.title = payload.title;
+    }
+    if (payload.price) {
+      data.price = payload.price;
+    }
+    const formData: FormData = this.createFormData(data);
+    return await this.http.put(payload.id, formData);
   }
 
   async deleteProducts(payload: any) {

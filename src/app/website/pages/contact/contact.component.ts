@@ -6,6 +6,7 @@ import {
   Validators,
 } from "@angular/forms";
 import { ContactService } from "../../service/contact/contact.service";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-contact",
@@ -16,6 +17,7 @@ export class ContactComponent {
   constructor(
     private formBuilder: FormBuilder,
     private contact: ContactService,
+    private toaster: ToastrService,
   ) {}
 
   contactform: FormGroup | any;
@@ -62,7 +64,9 @@ export class ContactComponent {
       // {name:'',email:'',message:''}
 
       const response = await this.contact.createContact(data);
-      console.log({ response });
+      if (response) {
+        this.toaster.success("Message sent successfully");
+      }
 
       // Handle the response as needed, e.g., show a success message
     } catch (error) {

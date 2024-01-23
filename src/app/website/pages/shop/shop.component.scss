@@ -58,3 +58,22 @@ p{
     font-weight: 600;
 
 }
+
+
+.file-input {
+    position: absolute;
+    left: 0;
+    top: 7%;
+    height: 35%;
+    width: 100%;
+    cursor: pointer;
+    opacity: 0;
+    
+  }
+
+  .uploaddiv{ border-style: dashed
+  }
+
+  .requirements{
+    display: flex; flex-direction: column;
+  }

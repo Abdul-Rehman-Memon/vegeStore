@@ -1,127 +1,93 @@
-<app-breadcrumb [title]="'Cart Page'"></app-breadcrumb>
+<div class="col-md-4">
+  <table class="mb-2 w-100" style="border-collapse: separate">
+    <thead>
+      <tr style="border-bottom: 2px solid #096a2e !important">
+        <th>
+          <p>Products</p>
+        </th>
+        <th>
+          <p>Quantity</p>
+        </th>
+        <th>
+          <p>Price</p>
+        </th>
+        <th>
+          <p>Total Price</p>
+        </th>
+        <th>
+          <p>Action</p>
+        </th>
+      </tr>
+    </thead>
 
-<!-- Shoping Cart Section Begin -->
-<section class="shoping-cart spad">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="shoping__cart__table">
-          <table>
-            <thead>
-              <tr>
-                <th class="shoping__product">Products</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="shoping__cart__item">
-                  <img src="img/cart/cart-1.jpg" alt="">
-                  <h5>Vegetable’s Package</h5>
-                </td>
-                <td class="shoping__cart__price">
-                  $55.00
-                </td>
-                <td class="shoping__cart__quantity">
-                  <div class="quantity">
-                    <div class="pro-qty">
-                      <input type="text" value="1">
-                    </div>
-                  </div>
-                </td>
-                <td class="shoping__cart__total">
-                  $110.00
-                </td>
-                <td class="shoping__cart__item__close">
-                  <span class="icon_close"></span>
-                </td>
-              </tr>
-              <tr>
-                <td class="shoping__cart__item">
-                  <img src="img/cart/cart-2.jpg" alt="">
-                  <h5>Fresh Garden Vegetable</h5>
-                </td>
-                <td class="shoping__cart__price">
-                  $39.00
-                </td>
-                <td class="shoping__cart__quantity">
-                  <div class="quantity">
-                    <div class="pro-qty">
-                      <input type="text" value="1">
-                    </div>
-                  </div>
-                </td>
-                <td class="shoping__cart__total">
-                  $39.99
-                </td>
-                <td class="shoping__cart__item__close">
-                  <span class="icon_close"></span>
-                </td>
-              </tr>
-              <tr>
-                <td class="shoping__cart__item">
-                  <img src="img/cart/cart-3.jpg" alt="">
-                  <h5>Organic Bananas</h5>
-                </td>
-                <td class="shoping__cart__price">
-                  $69.00
-                </td>
-                <td class="shoping__cart__quantity">
-                  <div class="quantity">
-                    <div class="pro-qty">
-                      <input type="text" value="1">
-                    </div>
-                  </div>
-                </td>
-                <td class="shoping__cart__total">
-                  $69.99
-                </td>
-                <td class="shoping__cart__item__close">
-                  <span class="icon_close"></span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+    <tbody>
+      <tr *ngFor="let item of cart">
+        <td>
+          <p>{{ item.title }}</p>
+        </td>
+        <td>
+          <p>{{ item.quantity }}</p>
+        </td>
+        <td>
+          <p>{{ item.price }}</p>
+        </td>
+        <td>
+          <p>{{ item.totalPrice }}</p>
+        </td>
+        <td>
+          <button class="btn btn-danger btn-sm" (click)="removeFromCart(item)">
+            Delete
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>T: Quantity</p>
+        </td>
+        <td>
+          <p>
+            {{ totalQuantity }}
+          </p>
+        </td>
+        <td>
+          <p>T: Price</p>
+        </td>
+        <td>
+          <p>
+            {{ totalPrice }}
+          </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="shoping__cart__btns">
-          <a href="#" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
-          <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
-            Upadate Cart</a>
-        </div>
-      </div>
-
-      <div class="col-lg-6">
-        <div class="shoping__continue">
-          <div class="shoping__discount">
-            <h5>Discount Codes</h5>
-            <form action="#">
-              <input type="text" placeholder="Enter your coupon code">
-              <button type="submit" class="site-btn">APPLY COUPON</button>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-6">
-        <div class="shoping__checkout">
-          <h5>Cart Total</h5>
-          <ul>
-            <li>Subtotal <span>$454.98</span></li>
-            <li>Total <span>$454.98</span></li>
-          </ul>
-          <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
-        </div>
-      </div>
-
+  <div class="row">
+    <div class="col-6"></div>
+    <div class="col-6">
+      <button
+        class="btn btn-sm float-end"
+        style="
+          border-color: #7fad39;
+          color: #7fad39;
+          font-weight: 600;
+          border: 1.5px solid #7fad39;
+        "
+        (click)="checkout()"
+      >
+        Order
+      </button>
+      <button
+        class="btn btn-sm mx-1 float-end"
+        style="
+          border-color: #7fad39;
+          color: #7fad39;
+          font-weight: 600;
+          border: 1.5px solid #7fad39;
+        "
+        (click)="clearCart()"
+      >
+        Cancel
+      </button>
     </div>
   </div>
-</section>
-<!-- Shoping Cart Section End -->
+</div>

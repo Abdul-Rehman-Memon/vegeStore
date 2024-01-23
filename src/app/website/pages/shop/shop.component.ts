@@ -18,32 +18,33 @@ export class ShopComponent {
   productForm: any;
   filterForm: FormBuilder | any;
   totalPrice: number = 0;
-  products: any = [
-    {
-      thumbnail: "assets/img/product/product-1.jpg",
-      title: "Strawberry",
-      quantity: 1,
-      price: "10",
-    },
-    {
-      thumbnail: "assets/img/product/product-1.jpg",
-      title: "Strawberry",
-      quantity: 1,
-      price: "10",
-    },
-    {
-      thumbnail: "assets/img/product/product-1.jpg",
-      title: "Strawberry",
-      quantity: 1,
-      price: "10",
-    },
-    {
-      thumbnail: "assets/img/product/product-1.jpg",
-      title: "Strawberry",
-      quantity: 1,
-      price: "10",
-    },
-  ];
+  products: any = [];
+  // products: any = [
+  //   {
+  //     thumbnail: "assets/img/product/product-1.jpg",
+  //     title: "Strawberry",
+  //     quantity: 1,
+  //     price: "10",
+  //   },
+  //   {
+  //     thumbnail: "assets/img/product/product-1.jpg",
+  //     title: "Strawberry",
+  //     quantity: 1,
+  //     price: "10",
+  //   },
+  //   {
+  //     thumbnail: "assets/img/product/product-1.jpg",
+  //     title: "Strawberry",
+  //     quantity: 1,
+  //     price: "10",
+  //   },
+  //   {
+  //     thumbnail: "assets/img/product/product-1.jpg",
+  //     title: "Strawberry",
+  //     quantity: 1,
+  //     price: "10",
+  //   },
+  // ];
   totalQuantity: any = 0;
   token: boolean | any;
   uploadFile: any;
@@ -91,15 +92,10 @@ export class ShopComponent {
     filters = formateFilter(filters);
     this.products = (await this.store.getProducts(filters)).map((d: any) => {
       const uint8Array = new Uint8Array(d.thumbnail.data);
-
-      // Create a Blob from the Uint8Array
       const blob = new Blob([uint8Array], { type: d.thumbnail.type });
-
-      // Create a data URL for the Blob
       const blobUrl = this.sanitizer.bypassSecurityTrustUrl(
         URL.createObjectURL(blob),
       );
-      console.log({ blobUrl });
       return {
         id: d.id,
         thumbnail: blobUrl,
@@ -154,30 +150,9 @@ export class ShopComponent {
     );
   }
 
-  removeFromCart(cartItem: any) {
-    this.cart = this.cart.filter((d: any) => {
-      if (d.id === cartItem.id) {
-        this.totalPrice = this.totalPrice - d.totalPrice;
-        this.totalQuantity = this.totalQuantity - d.quantity;
-      }
-      return d.id !== cartItem.id;
-    });
-  }
-
-  clearCart() {
-    this.cart = [];
-    this.totalQuantity = 0;
-    this.totalPrice = 0;
-  }
-
-  checkout() {
-    if (!this.token) {
-      this.alert.alert();
-
-      return;
-    } else {
-      console.log(this.cart);
-    }
+  clear() {
+    this.photo = undefined;
+    this.productForm.reset();
   }
 
   async addProduct() {
@@ -199,14 +174,15 @@ export class ShopComponent {
     }
   }
 
-  editProduct(data: any) {
-    console.log({ data });
+  async editProduct(event: any) {
+    console.log({ event });
+    const payload = this.productForm.value;
+    await this.store.updateProducts(payload);
   }
 
   async deleteProduct(data: any) {
     await this.store.deleteProducts({ id: data.id });
     this.getProducts();
-    this.clearCart();
   }
 
   readURL(event: any) {

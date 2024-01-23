@@ -3,6 +3,7 @@ import { StoreService } from "./../../service/store/store.service";
 import { Component } from "@angular/core";
 import { formateFilter } from "src/app/shared/functions";
 import { Router } from "@angular/router";
+import { DomSanitizer } from "@angular/platform-browser";
 
 declare var $: any;
 @Component({
@@ -40,6 +41,7 @@ export class HomeComponent {
     private store: StoreService,
     private formbuilder: FormBuilder,
     private router: Router,
+    private sanitizer: DomSanitizer,
   ) {}
 
   // when page is loaded, this function is called
@@ -60,9 +62,27 @@ export class HomeComponent {
   }
 
   async getProducts() {
+    // let filters = this.filterForm.value;
+    // filters = formateFilter(filters);
+    // this.products = await this.store.getProducts(filters);
+
     let filters = this.filterForm.value;
     filters = formateFilter(filters);
-    this.products = await this.store.getProducts(filters);
+    this.products = (await this.store.getProducts(filters)).map((d: any) => {
+      const uint8Array = new Uint8Array(d.thumbnail.data);
+      const blob = new Blob([uint8Array], { type: d.thumbnail.type });
+      const blobUrl = this.sanitizer.bypassSecurityTrustUrl(
+        URL.createObjectURL(blob),
+      );
+      return {
+        id: d.id,
+        thumbnail: blobUrl,
+        title: d.title,
+        price: d.price,
+        quantity: "",
+        kgs: "1kg",
+      };
+    });
   }
 
   route() {

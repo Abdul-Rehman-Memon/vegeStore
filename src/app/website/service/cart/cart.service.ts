@@ -1,0 +1,18 @@
+import { Injectable } from "@angular/core";
+
+@Injectable({
+  providedIn: "root",
+})
+export class CartService {
+  cart: any;
+
+  constructor() {}
+
+  updateCart(payload: any) {
+    this.cart = payload;
+  }
+
+  sendCart() {
+    return this.cart;
+  }
+}

@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="container-fluid" style="min-height: 65vh">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <form [formGroup]="filterForm" (ngSubmit)="submit()">
         <div class="row">
           <div class="col-md-4">
@@ -39,9 +39,9 @@
           </div>
         </div>
       </form>
-      <div class="row">
+      <div class="row mt-2">
         <ng-container *ngFor="let product of products">
-          <div class="col-md-4">
+          <div class="col-md-3">
             <div
               class="card my-2 border-1-solid"
               style="border-color: #7fad39 !important"
@@ -93,6 +93,8 @@
                     <button
                       class="btn btn-sm float-end"
                       (click)="editProduct(product)"
+                      data-bs-toggle="modal"
+                      data-bs-target="#editModal"
                     >
                       <img
                         style="margin-top: 4px !important"
@@ -107,102 +109,6 @@
             </div>
           </div>
         </ng-container>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <table class="mb-2 w-100" style="border-collapse: separate">
-        <thead>
-          <tr style="border-bottom: 2px solid #096a2e !important">
-            <th>
-              <p>Products</p>
-            </th>
-            <th>
-              <p>Quantity</p>
-            </th>
-            <th>
-              <p>Price</p>
-            </th>
-            <th>
-              <p>Total Price</p>
-            </th>
-            <th>
-              <p>Action</p>
-            </th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr *ngFor="let item of cart">
-            <td>
-              <p>{{ item.title }}</p>
-            </td>
-            <td>
-              <p>{{ item.quantity }}</p>
-            </td>
-            <td>
-              <p>{{ item.price }}</p>
-            </td>
-            <td>
-              <p>{{ item.totalPrice }}</p>
-            </td>
-            <td>
-              <button
-                class="btn btn-danger btn-sm"
-                (click)="removeFromCart(item)"
-              >
-                Delete
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>T: Quantity</p>
-            </td>
-            <td>
-              <p>
-                {{ totalQuantity }}
-              </p>
-            </td>
-            <td>
-              <p>T: Price</p>
-            </td>
-            <td>
-              <p>
-                {{ totalPrice }}
-              </p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="row">
-        <div class="col-6"></div>
-        <div class="col-6">
-          <button
-            class="btn btn-sm float-end"
-            style="
-              border-color: #7fad39;
-              color: #7fad39;
-              font-weight: 600;
-              border: 1.5px solid #7fad39;
-            "
-            (click)="checkout()"
-          >
-            Order
-          </button>
-          <button
-            class="btn btn-sm mx-1 float-end"
-            style="
-              border-color: #7fad39;
-              color: #7fad39;
-              font-weight: 600;
-              border: 1.5px solid #7fad39;
-            "
-            (click)="clearCart()"
-          >
-            Cancel
-          </button>
-        </div>
       </div>
     </div>
   </div>
@@ -220,7 +126,7 @@
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-md">
     <div class="modal-content p-2">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Add Product</h1>
@@ -229,29 +135,61 @@
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
+          (click)="clear()"
         ></button>
       </div>
       <form action="" [formGroup]="productForm">
         <div class="row">
           <div class="col-12 d-flex flex-row justify-content-center">
-            <img
-              [src]="photo || 'assets/img/product/product-1.jpg'"
-              alt=""
-              (change)="readURL($event)"
-            />
+            <img [src]="photo" alt="" (change)="readURL($event)" />
           </div>
           <div class="col-12" style="display: none">
             <input
               (change)="readURL($event)"
               type="file"
+              style="display: none"
               class="form-control"
               #fileInput
               placeholder="Image URL"
             />
           </div>
         </div>
+        <div class="row mt-2">
+          <div class="col">
+            <div
+              class="w-100 rounded border-success d-flex justify-content-center uploaddiv"
+              style="cursor: pointer"
+              (click)="triggerFileUpload()"
+              *ngIf="!photo"
+            >
+              <div class="d-flex flex-column">
+                <img
+                  src="../../../../assets/images/UploadIcon.svg"
+                  alt="img"
+                  class="d-none"
+                />
+                <span class="">Drag and drop image, or browse</span>
+                <span class="text-muted requirements"
+                  ><small style="margin: auto">support jpg, jpeg, png</small>
+
+                  <small style="margin: auto"
+                    >Resolution must be 512px by 512px</small
+                  >
+                </span>
+                <input
+                  style="display: none"
+                  class="file-input"
+                  type="file"
+                  (change)="readURL($event)"
+                  accept=".jpg,.jpeg,.png"
+                  #fileInput
+                />
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="row">
-          <div class="col-12 mt-2">
+          <div class="col-6 mt-2">
             <input
               type="text"
               class="form-control"
@@ -259,7 +197,7 @@
               formControlName="title"
             />
           </div>
-          <div class="col-12 mt-2">
+          <div class="col-6 mt-2">
             <input
               type="number"
               class="form-control"
@@ -269,32 +207,125 @@
           </div>
         </div>
       </form>
-      <div class="modal-footer">
+      <div class="row mt-2">
+        <div class="col-12">
+          <button
+            type="button"
+            class="btn btn-sm float-end w-25"
+            (click)="addProduct()"
+            data-bs-dismiss="modal"
+            style="background-color: #7fad39; color: #fff"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- edit modal -->
+
+<div
+  class="modal fade"
+  id="editModal"
+  tabindex="-1"
+  aria-labelledby="editModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-md">
+    <div class="modal-content p-2">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editModalLabel">Edit Product</h1>
         <button
           type="button"
-          class="btn btnSearch btn-sm float-start"
-          style="background-color: #7fad39; color: #fff"
-          (click)="triggerFileUpload()"
-        >
-          Upload Image
-        </button>
-        <button
-          type="button"
-          class="btn btn-danger btn-sm"
+          class="btn-close"
           data-bs-dismiss="modal"
-        >
-          Cancel
-        </button>
-        <!-- [disabled]="!productForm.valid" -->
-        <button
-          type="button"
-          class="btn btnSearch btn-sm"
-          (click)="addProduct()"
-          data-bs-dismiss="modal"
-          style="background-color: #7fad39; color: #fff"
-        >
-          Add
-        </button>
+          aria-label="Close"
+          (click)="clear()"
+        ></button>
+      </div>
+      <form action="" [formGroup]="productForm">
+        <div class="row">
+          <div class="col-12 d-flex flex-row justify-content-center">
+            <img [src]="photo" alt="" (change)="readURL($event)" />
+          </div>
+          <div class="col-12" style="display: none">
+            <input
+              (change)="readURL($event)"
+              type="file"
+              style="display: none"
+              class="form-control"
+              #fileInput
+              placeholder="Image URL"
+            />
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col">
+            <div
+              class="w-100 rounded border-success d-flex justify-content-center uploaddiv"
+              style="cursor: pointer"
+              (click)="triggerFileUpload()"
+              *ngIf="!photo"
+            >
+              <div class="d-flex flex-column">
+                <img
+                  src="../../../../assets/images/UploadIcon.svg"
+                  alt="img"
+                  class="d-none"
+                />
+                <span class="">Drag and drop image, or browse</span>
+                <span class="text-muted requirements"
+                  ><small style="margin: auto">support jpg, jpeg, png</small>
+
+                  <small style="margin: auto"
+                    >Resolution must be 512px by 512px</small
+                  >
+                </span>
+                <input
+                  style="display: none"
+                  class="file-input"
+                  type="file"
+                  (change)="readURL($event)"
+                  accept=".jpg,.jpeg,.png"
+                  #fileInput
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 mt-2">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Title"
+              formControlName="title"
+            />
+          </div>
+          <div class="col-6 mt-2">
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Price"
+              formControlName="price"
+            />
+          </div>
+        </div>
+      </form>
+      <div class="row mt-2">
+        <div class="col-12">
+          <button
+            type="button"
+            class="btn btn-sm float-end w-25"
+            (click)="editProduct($event)"
+            data-bs-dismiss="modal"
+            style="background-color: #7fad39; color: #fff"
+          >
+            Update
+          </button>
+        </div>
       </div>
     </div>
   </div>
