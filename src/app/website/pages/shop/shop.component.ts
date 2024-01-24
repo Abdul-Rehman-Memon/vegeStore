@@ -6,6 +6,7 @@ import { AlertService } from "../../service/alert/alert.service";
 import { StorageService } from "../../service/toaster/storage.service";
 import { ToastrService } from "ngx-toastr";
 import { DomSanitizer } from "@angular/platform-browser";
+import { CartService } from "../../service/cart/cart.service";
 
 @Component({
   selector: "app-shop",
@@ -19,36 +20,11 @@ export class ShopComponent {
   filterForm: FormBuilder | any;
   totalPrice: number = 0;
   products: any = [];
-  // products: any = [
-  //   {
-  //     thumbnail: "assets/img/product/product-1.jpg",
-  //     title: "Strawberry",
-  //     quantity: 1,
-  //     price: "10",
-  //   },
-  //   {
-  //     thumbnail: "assets/img/product/product-1.jpg",
-  //     title: "Strawberry",
-  //     quantity: 1,
-  //     price: "10",
-  //   },
-  //   {
-  //     thumbnail: "assets/img/product/product-1.jpg",
-  //     title: "Strawberry",
-  //     quantity: 1,
-  //     price: "10",
-  //   },
-  //   {
-  //     thumbnail: "assets/img/product/product-1.jpg",
-  //     title: "Strawberry",
-  //     quantity: 1,
-  //     price: "10",
-  //   },
-  // ];
   totalQuantity: any = 0;
   token: boolean | any;
   uploadFile: any;
   photo: any;
+  editId: any;
 
   constructor(
     private store: StoreService,
@@ -57,6 +33,7 @@ export class ShopComponent {
     private storage: StorageService,
     private toaster: ToastrService,
     private sanitizer: DomSanitizer,
+    private cartService: CartService,
   ) {}
 
   ngOnInit() {
@@ -145,12 +122,18 @@ export class ShopComponent {
       0,
     );
     this.totalQuantity = this.cart.reduce(
-      (acc: any, d: any) => acc + d.quantity,
+      (acc: any, d: any) => acc + +d.quantity,
       0,
     );
+
+    this.cartService.cart = this.cart;
+    this.cartService.totalPrice = this.totalPrice;
+    this.cartService.totalQuantity = this.totalQuantity;
+    this.toaster.success(" Product Added to Cart Succesfully ");
   }
 
   clear() {
+    this.uploadFile = undefined;
     this.photo = undefined;
     this.productForm.reset();
   }
@@ -169,15 +152,28 @@ export class ShopComponent {
         thumbnail: this.uploadFile,
         userId: id,
       };
+
       await this.store.addProducts(payload);
-      this.getProducts();
+      await this.getProducts();
+      this.clear();
+      this.toaster.success("Product Added Succesfully");
     }
   }
 
-  async editProduct(event: any) {
-    console.log({ event });
-    const payload = this.productForm.value;
+  async editProduct() {
+    const payload = await {
+      title: this.productForm.value.title,
+      price: this.productForm.value.price,
+      thumbnail: this.uploadFile,
+      id: this.editId,
+    };
     await this.store.updateProducts(payload);
+    this.getProducts();
+    this.clear();
+  }
+
+  setId(payload: any) {
+    this.editId = payload.id;
   }
 
   async deleteProduct(data: any) {

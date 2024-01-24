@@ -14,28 +14,7 @@ declare var $: any;
 export class HomeComponent {
   filterForm: FormBuilder | any;
 
-  products: any = [
-    {
-      thubnail: "assets/img/product/product-1.jpg",
-      title: "Strawberry",
-      price: "10",
-    },
-    {
-      thubnail: "assets/img/product/product-1.jpg",
-      title: "Strawberry",
-      price: "10",
-    },
-    {
-      thubnail: "assets/img/product/product-1.jpg",
-      title: "Strawberry",
-      price: "10",
-    },
-    {
-      thubnail: "assets/img/product/product-1.jpg",
-      title: "Strawberry",
-      price: "10",
-    },
-  ];
+  products: any = [];
 
   constructor(
     private store: StoreService,
@@ -62,27 +41,25 @@ export class HomeComponent {
   }
 
   async getProducts() {
-    // let filters = this.filterForm.value;
-    // filters = formateFilter(filters);
-    // this.products = await this.store.getProducts(filters);
-
     let filters = this.filterForm.value;
     filters = formateFilter(filters);
-    this.products = (await this.store.getProducts(filters)).map((d: any) => {
-      const uint8Array = new Uint8Array(d.thumbnail.data);
-      const blob = new Blob([uint8Array], { type: d.thumbnail.type });
-      const blobUrl = this.sanitizer.bypassSecurityTrustUrl(
-        URL.createObjectURL(blob),
-      );
-      return {
-        id: d.id,
-        thumbnail: blobUrl,
-        title: d.title,
-        price: d.price,
-        quantity: "",
-        kgs: "1kg",
-      };
-    });
+    this.products = (await this.store.getProducts(filters))
+      .map((d: any) => {
+        const uint8Array = new Uint8Array(d.thumbnail.data);
+        const blob = new Blob([uint8Array], { type: d.thumbnail.type });
+        const blobUrl = this.sanitizer.bypassSecurityTrustUrl(
+          URL.createObjectURL(blob),
+        );
+        return {
+          id: d.id,
+          thumbnail: blobUrl,
+          title: d.title,
+          price: d.price,
+          quantity: "",
+          kgs: "1kg",
+        };
+      })
+      .slice(0, 8);
   }
 
   route() {

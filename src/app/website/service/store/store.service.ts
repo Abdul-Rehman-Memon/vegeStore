@@ -26,8 +26,12 @@ export class StoreService {
     if (payload.price) {
       data.price = payload.price;
     }
+    console.log({ data });
+
     const formData: FormData = this.createFormData(data);
-    return await this.http.put(payload.id, formData);
+    return await firstValueFrom(
+      this.httpClient.put(`product/${payload.id}`, formData),
+    );
   }
 
   async deleteProducts(payload: any) {

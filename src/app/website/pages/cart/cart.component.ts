@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { AlertService } from "../../service/alert/alert.service";
 import { StorageService } from "../../service/toaster/storage.service";
 import { CartService } from "../../service/cart/cart.service";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-cart",
@@ -10,11 +11,14 @@ import { CartService } from "../../service/cart/cart.service";
 })
 export class CartComponent {
   token: boolean | any;
-  cart: any;
+  cart: any = [];
+  totalQuantity: any = 0;
+  totalPrice: any = 0;
   constructor(
     private alert: AlertService,
     private storage: StorageService,
     private cartService: CartService,
+    private toaster: ToastrService,
   ) {}
 
   ngOnInit() {
@@ -22,14 +26,14 @@ export class CartComponent {
     this.setCart();
   }
   setCart() {
-    this.cart = this.cartService.sendCart();
+    this.cart = this.cartService.cart;
+    this.totalQuantity = this.cartService.totalQuantity;
+    this.totalPrice = this.cartService.totalPrice;
   }
   setToken() {
     this.token = this.storage.getToken();
   }
 
-  totalQuantity: any;
-  totalPrice: any;
   removeFromCart(cartItem: any) {
     this.cart = this.cart.filter((d: any) => {
       if (d.id === cartItem.id) {
@@ -41,12 +45,18 @@ export class CartComponent {
   }
 
   checkout() {
+    console.log("this.cart", this.cart);
     if (!this.token) {
       this.alert.alert();
 
       return;
     } else {
-      console.log(this.cart);
+      if (this.cart.length == 0) {
+        this.toaster.error("Please Add Product");
+      }
+      if (this.cart.length > 0) {
+        this.toaster.success("Order Placed Sccessfully");
+      }
     }
   }
 

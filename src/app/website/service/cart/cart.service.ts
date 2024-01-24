@@ -1,18 +1,31 @@
 import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class CartService {
-  cart: any;
+  // Use BehaviorSubject with an initial value
+  private cartSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  cart$ = this.cartSubject.asObservable();
+  cart: any = [];
 
-  constructor() {}
+  totalQuantity: any = 0;
+  totalPrice: any = 0;
 
-  updateCart(payload: any) {
-    this.cart = payload;
+  badge: any;
+
+  constructor() {
+    this.badge = this.cart.length;
   }
 
-  sendCart() {
-    return this.cart;
+  // Use this method to update the cart and notify subscribers
+  updateCart(payload: any) {
+    this.cartSubject.next(payload);
+  }
+
+  // Use this method to get the current cart value
+  getCart() {
+    return this.cartSubject.value;
   }
 }

@@ -49,7 +49,8 @@ export class LoginComponent {
     const response: any = (await this.auth.signIn(credential)).data;
 
     this.storage.setInStorage("user", response);
-    window.location.reload();
+    this.router.navigate(["/"]);
+    // window.location.reload();
     if (response) {
       this.toaster.success("Login successfull");
     }

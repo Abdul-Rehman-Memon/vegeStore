@@ -1,5 +1,12 @@
 <app-header></app-header>
-<div class="container-fluid" style="min-height: 65vh">
+<div class="container" style="min-height: 65vh">
+  <div class="row">
+    <div class="col d-flex flex-row justify-content-center">
+      <div class="section-title">
+        <h2>Shop</h2>
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col-md-12">
       <form [formGroup]="filterForm" (ngSubmit)="submit()">
@@ -9,7 +16,7 @@
               type="text"
               placeholder="Filter by Title"
               formControlName="title"
-              class="inputFields w-100"
+              class="inputFields w-100 mt-1"
             />
           </div>
           <div class="col-md-4">
@@ -17,10 +24,10 @@
               type="number"
               placeholder="Filter by Price"
               formControlName="price"
-              class="inputFields w-100"
+              class="inputFields w-100 mt-1"
             />
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4 mt-1">
             <button
               class="btn btnSearch btnShopNow float-start w-50"
               type="submit"
@@ -28,6 +35,7 @@
               Search
             </button>
             <button
+              *ngIf="token"
               type="button"
               class="btn btn-primary w-50"
               data-bs-toggle="modal"
@@ -41,7 +49,7 @@
       </form>
       <div class="row mt-2">
         <ng-container *ngFor="let product of products">
-          <div class="col-md-3">
+          <div class="col-sm-6 col-md-4 col-xl-3">
             <div
               class="card my-2 border-1-solid"
               style="border-color: #7fad39 !important"
@@ -92,7 +100,7 @@
                     </button>
                     <button
                       class="btn btn-sm float-end"
-                      (click)="editProduct(product)"
+                      (click)="setId(product)"
                       data-bs-toggle="modal"
                       data-bs-target="#editModal"
                     >
@@ -139,9 +147,9 @@
         ></button>
       </div>
       <form action="" [formGroup]="productForm">
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-12 d-flex flex-row justify-content-center">
-            <img [src]="photo" alt="" (change)="readURL($event)" />
+            <img [src]="photo" alt=""  />
           </div>
           <div class="col-12" style="display: none">
             <input
@@ -153,21 +161,23 @@
               placeholder="Image URL"
             />
           </div>
-        </div>
+        </div> -->
         <div class="row mt-2">
+          <div
+            *ngIf="photo"
+            class="col-12 d-flex flex-row justify-content-center"
+          >
+            <img [src]="photo" alt="" />
+          </div>
+
           <div class="col">
             <div
               class="w-100 rounded border-success d-flex justify-content-center uploaddiv"
               style="cursor: pointer"
               (click)="triggerFileUpload()"
-              *ngIf="!photo"
             >
               <div class="d-flex flex-column">
-                <img
-                  src="../../../../assets/images/UploadIcon.svg"
-                  alt="img"
-                  class="d-none"
-                />
+                <img src="../../../../assets/images/UploadIcon.svg" alt="img" />
                 <span class="">Drag and drop image, or browse</span>
                 <span class="text-muted requirements"
                   ><small style="margin: auto">support jpg, jpeg, png</small>
@@ -210,6 +220,7 @@
       <div class="row mt-2">
         <div class="col-12">
           <button
+            [disabled]="!productForm.valid"
             type="button"
             class="btn btn-sm float-end w-25"
             (click)="addProduct()"
@@ -246,7 +257,7 @@
         ></button>
       </div>
       <form action="" [formGroup]="productForm">
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-12 d-flex flex-row justify-content-center">
             <img [src]="photo" alt="" (change)="readURL($event)" />
           </div>
@@ -260,21 +271,23 @@
               placeholder="Image URL"
             />
           </div>
-        </div>
+        </div> -->
         <div class="row mt-2">
+          <div
+            *ngIf="photo"
+            class="col-12 d-flex flex-row justify-content-center"
+          >
+            <img [src]="photo" alt="" />
+          </div>
+
           <div class="col">
             <div
               class="w-100 rounded border-success d-flex justify-content-center uploaddiv"
               style="cursor: pointer"
               (click)="triggerFileUpload()"
-              *ngIf="!photo"
             >
               <div class="d-flex flex-column">
-                <img
-                  src="../../../../assets/images/UploadIcon.svg"
-                  alt="img"
-                  class="d-none"
-                />
+                <img src="../../../../assets/images/UploadIcon.svg" alt="img" />
                 <span class="">Drag and drop image, or browse</span>
                 <span class="text-muted requirements"
                   ><small style="margin: auto">support jpg, jpeg, png</small>
@@ -319,7 +332,7 @@
           <button
             type="button"
             class="btn btn-sm float-end w-25"
-            (click)="editProduct($event)"
+            (click)="editProduct()"
             data-bs-dismiss="modal"
             style="background-color: #7fad39; color: #fff"
           >

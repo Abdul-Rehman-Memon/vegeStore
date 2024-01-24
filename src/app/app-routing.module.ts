@@ -7,6 +7,7 @@ import { ContactComponent } from "./website/pages/contact/contact.component";
 import { BlogsComponent } from "./website/pages/blogs/blogs.component";
 import { LoginComponent } from "./website/pages/login/login.component";
 import { SignupComponent } from "./website/pages/signup/signup.component";
+import { CartComponent } from "./website/pages/cart/cart.component";
 
 const routes: Routes = [
   {
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path: "blog",
     component: BlogsComponent,
+  },
+  {
+    path: "cart",
+    component: CartComponent,
   },
   {
     path: "shop/:category",
