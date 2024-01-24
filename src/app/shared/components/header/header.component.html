@@ -23,44 +23,37 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav ms-auto mr-3">
         <li class="nav-item fw-bold text-center">
-          <button
-            type="button"
-            class="btn float-end"
-            routerLink="/cart"
-            *ngIf="token"
-          >
+          <button type="button" class="btn float-end" routerLink="/cart">
             <img src="./../../../../assets/img/cart.svg" alt="" height="20px" />
           </button>
         </li>
-        <li class="nav-item fw-bold text-center">
-          <a
-            class="nav-link navLi active text-success"
-            aria-current="page"
-            routerLink="/"
-            >Home</a
-          >
+        <li
+          class="nav-item fw-bold text-center"
+          [ngClass]="{ active: isRoute == '' }"
+        >
+          <a class="nav-link navLi" aria-current="page" routerLink="/">Home</a>
         </li>
-        <li class="nav-item fw-bold text-center">
-          <a
-            class="nav-link navLi active"
-            aria-current="page"
-            routerLink="/shop"
+        <li
+          class="nav-item fw-bold text-center"
+          [ngClass]="{ active: isRoute == 'shop' }"
+        >
+          <a class="nav-link navLi" aria-current="page" routerLink="/shop"
             >Shop</a
           >
         </li>
-        <li class="nav-item fw-bold text-center">
-          <a
-            class="nav-link navLi active"
-            aria-current="page"
-            routerLink="/about-us"
+        <li
+          class="nav-item fw-bold text-center"
+          [ngClass]="{ active: isRoute == 'about-us' }"
+        >
+          <a class="nav-link navLi" aria-current="page" routerLink="/about-us"
             >About</a
           >
         </li>
-        <li class="nav-item fw-bold text-center">
-          <a
-            class="nav-link navLi active"
-            aria-current="page"
-            routerLink="/contact-us"
+        <li
+          class="nav-item fw-bold text-center"
+          [ngClass]="{ active: isRoute == 'contact-us' }"
+        >
+          <a class="nav-link navLi" aria-current="page" routerLink="/contact-us"
             >Contact Us</a
           >
         </li>

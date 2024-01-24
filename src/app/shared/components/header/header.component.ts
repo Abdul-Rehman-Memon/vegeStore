@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { CartService } from "src/app/website/service/cart/cart.service";
 import { ProfileService } from "src/app/website/service/profile/profile.service";
@@ -12,17 +13,20 @@ import { StorageService } from "src/app/website/service/toaster/storage.service"
 export class HeaderComponent implements OnInit, OnDestroy {
   token: any;
   cartBadge: number = 0;
+  isRoute: string | undefined;
 
   constructor(
     private storage: StorageService,
     private auth: ProfileService,
     private cartService: CartService,
+    private route: ActivatedRoute,
   ) {
     this.updateCart();
   }
 
   ngOnInit() {
     this.getToken();
+    this.checkRoute();
   }
 
   ngOnDestroy() {
@@ -31,12 +35,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   updateCart() {
     this.cartBadge = this.cartService.cart;
-    console.log("this.cartBadge", this.cartBadge);
   }
 
   getToken() {
     this.token = this.storage.getToken();
-    console.log({ token: this.token });
   }
 
   signout() {
@@ -44,5 +46,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.auth.signOut({ id });
     this.storage.removeInStorage("user");
     window.location.reload();
+  }
+
+  checkRoute() {
+    this.isRoute = this.route.snapshot.routeConfig?.path;
+    console.log({ isRoute: this.isRoute });
   }
 }
