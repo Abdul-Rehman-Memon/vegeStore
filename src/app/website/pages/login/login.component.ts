@@ -39,7 +39,6 @@ export class LoginComponent {
       if (event as any) {
         // Store the previous route when the navigation ends
         this.previousRoute = event.urlBeforeRedirects;
-        console.log("Previous Route:", this.previousRoute);
       }
     });
   }

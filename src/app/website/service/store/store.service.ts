@@ -26,7 +26,6 @@ export class StoreService {
     if (payload.price) {
       data.price = payload.price;
     }
-    console.log({ data });
 
     const formData: FormData = this.createFormData(data);
     return await firstValueFrom(
@@ -65,5 +64,9 @@ export class StoreService {
     } else {
       formData.append(key, item);
     }
+  }
+
+  async placeOrder(payload: any) {
+    return await this.http.post("order", payload);
   }
 }

@@ -126,9 +126,15 @@ export class ShopComponent {
       0,
     );
 
-    this.cartService.cart = this.cart;
-    this.cartService.totalPrice = this.totalPrice;
-    this.cartService.totalQuantity = this.totalQuantity;
+    const payload = {
+      cart: this.cart,
+      price: this.totalPrice,
+      quantity: this.totalQuantity,
+    };
+
+    this.cartService.getCart(payload);
+    // this.cartService.totalPrice = this.totalPrice;
+    // this.cartService.totalQuantity = this.totalQuantity;
     this.toaster.success(" Product Added to Cart Succesfully ");
   }
 

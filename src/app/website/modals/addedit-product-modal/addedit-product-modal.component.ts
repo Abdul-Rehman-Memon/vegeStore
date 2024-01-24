@@ -26,9 +26,7 @@ export class AddeditProductModalComponent {
     });
   }
 
-  submit() {
-    console.log(this.form.value);
-  }
+  submit() {}
 
   async addProducts() {
     const data = await this.storeService.addProducts(this.form.value);

@@ -1,13 +1,11 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
+import { StorageService } from "../toaster/storage.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class CartService {
-  // Use BehaviorSubject with an initial value
-  private cartSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  cart$ = this.cartSubject.asObservable();
   cart: any = [];
 
   totalQuantity: any = 0;
@@ -15,17 +13,35 @@ export class CartService {
 
   badge: any;
 
-  constructor() {
-    this.badge = this.cart.length;
+  constructor(private storageService: StorageService) {}
+
+  sendCart() {
+    const payload = {
+      cart: this.storageService.getInStorage("cart"),
+      price: this.storageService.getInStorage("totalPrice"),
+      quantity: this.storageService.getInStorage("totalQuantity"),
+    };
+    return payload;
+  }
+  getCart(payload: any) {
+    const cart = this.storageService.getInStorage("cart");
+    if (cart) {
+      cart.push({
+        ...payload,
+      });
+      this.storageService.setInStorage("cart", payload.cart);
+      this.storageService.setInStorage("totalQuantity", payload.quantity);
+      this.storageService.setInStorage("totalPrice", payload.price);
+    } else {
+      this.storageService.setInStorage("cart", payload.cart);
+      this.storageService.setInStorage("totalQuantity", payload.quantity);
+      this.storageService.setInStorage("totalPrice", payload.price);
+    }
   }
 
-  // Use this method to update the cart and notify subscribers
-  updateCart(payload: any) {
-    this.cartSubject.next(payload);
-  }
-
-  // Use this method to get the current cart value
-  getCart() {
-    return this.cartSubject.value;
+  removeFromCart() {
+    this.storageService.removeInStorage("cart");
+    this.storageService.removeInStorage("totalQuantity");
+    this.storageService.removeInStorage("totalPrice");
   }
 }

@@ -59,7 +59,5 @@ import { ToastrModule } from "ngx-toastr";
   ],
 })
 export class WebsiteModule {
-  constructor() {
-    console.log("WebsiteModule constructor");
-  }
+  constructor() {}
 }

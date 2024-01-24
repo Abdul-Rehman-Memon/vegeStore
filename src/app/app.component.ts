@@ -12,7 +12,6 @@ export class AppComponent {
   products: any[] = [];
 
   constructor(public store: StoreService) {
-    // console.log('AppComponent constructor');
     // // run js file for this page
     // $.getScript('../../../../assets/js/main.js');
     // // get all products from the server
@@ -25,11 +24,9 @@ export class AppComponent {
   //     // res is the response from the server
   //     (res: any) => {
   //       this.products = res;
-  //       console.log(this.products);
   //     },
   //     // err is the error from the server
   //     (err) => {
-  //       console.log(err);
   //     }
   //   );
   // }

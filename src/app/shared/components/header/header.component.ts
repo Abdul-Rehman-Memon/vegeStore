@@ -50,6 +50,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   checkRoute() {
     this.isRoute = this.route.snapshot.routeConfig?.path;
-    console.log({ isRoute: this.isRoute });
   }
 }

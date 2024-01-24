@@ -3,6 +3,8 @@ import { AlertService } from "../../service/alert/alert.service";
 import { StorageService } from "../../service/toaster/storage.service";
 import { CartService } from "../../service/cart/cart.service";
 import { ToastrService } from "ngx-toastr";
+import { StoreService } from "../../service/store/store.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-cart",
@@ -19,6 +21,8 @@ export class CartComponent {
     private storage: StorageService,
     private cartService: CartService,
     private toaster: ToastrService,
+    private store: StoreService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -26,9 +30,9 @@ export class CartComponent {
     this.setCart();
   }
   setCart() {
-    this.cart = this.cartService.cart;
-    this.totalQuantity = this.cartService.totalQuantity;
-    this.totalPrice = this.cartService.totalPrice;
+    this.cart = this.cartService.sendCart().cart;
+    this.totalQuantity = this.cartService.sendCart().quantity;
+    this.totalPrice = this.cartService.sendCart().price;
   }
   setToken() {
     this.token = this.storage.getToken();
@@ -42,25 +46,51 @@ export class CartComponent {
       }
       return d.id !== cartItem.id;
     });
+
+    const payload = {
+      cart: this.cart,
+      price: this.totalPrice,
+      quantity: this.totalQuantity,
+    };
+
+    this.cartService.getCart(payload);
   }
 
-  checkout() {
-    console.log("this.cart", this.cart);
+  async checkout() {
     if (!this.token) {
       this.alert.alert();
 
       return;
     } else {
-      if (this.cart.length == 0) {
+      if (this.cart?.length == 0 || !this.cart || this.cart == "") {
         this.toaster.error("Please Add Product");
       }
       if (this.cart.length > 0) {
-        this.toaster.success("Order Placed Sccessfully");
+        const orderDetails = this.cart.map((d: any) => {
+          return {
+            quantity: d.quantity,
+            productId: d.id,
+          };
+        });
+
+        const payload = {
+          userId: this.storage.getInStorage("user").id,
+          orderPrice: this.totalPrice.toString(),
+          OrderDetails: orderDetails,
+        };
+        try {
+          await this.store.placeOrder(payload);
+
+          this.toaster.success("Order Placed Sccessfully");
+          this.storage.removeInStorage("cart");
+          this.router.navigate(["/shop"]);
+        } catch {}
       }
     }
   }
 
   clearCart() {
+    this.cartService.removeFromCart();
     this.cart = [];
     this.totalQuantity = 0;
     this.totalPrice = 0;

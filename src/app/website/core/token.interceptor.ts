@@ -49,7 +49,6 @@ export class TokenInterceptor implements HttpInterceptor {
         }),
       );
     } catch (err) {
-      console.log({ err });
       return throwError(
         () => new Error("Something bad happened; please try again later."),
       );
@@ -82,7 +81,6 @@ export class TokenInterceptor implements HttpInterceptor {
   //   // Pass the modified request through the interceptor
   //   return next.handle(modifiedRequest).pipe(
   //     catchError((error: HttpErrorResponse) => {
-  //       console.log({ error });
   //       // Handle errors here, you may want to log or display messages
   //       let err = error?.error;
   //       if (err?.meta) {
