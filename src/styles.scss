@@ -27,3 +27,6 @@ input::-webkit-inner-spin-button {
 .btn:focus{
   box-shadow: inherit;
 }
+.swal2-default-outline:focus{
+  box-shadow: none  !important ;
+}
