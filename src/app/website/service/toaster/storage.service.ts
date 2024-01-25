@@ -29,4 +29,8 @@ export class StorageService {
   removeInStorage(payload: string) {
     localStorage.removeItem(payload);
   }
+
+  clearStorage() {
+    localStorage.clear();
+  }
 }

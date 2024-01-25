@@ -44,7 +44,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   signout() {
     const id = this.storage.getInStorage("user").id;
     this.auth.signOut({ id });
-    this.storage.removeInStorage("user");
+    this.storage.clearStorage();
     window.location.reload();
   }
 
