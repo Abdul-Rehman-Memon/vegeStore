@@ -17,20 +17,11 @@ export const database: TypeOrmModuleAsyncOptions = {
       username: 'root',
       password: '',
       database: 'vegeStore',
-      // synchronize: true,
-      logging: true,
       entities: [__dirname + './../../models/**/*.entity{.ts,.js}'],
       // ''
+      // synchronize: true,
+      logging: true,
     };
-
-    // type: 'mysql',
-    // host: 'localhost',
-    // port: 3306,
-    // username: 'root',
-    // password: '',
-    // database: 'vegeStore',
-    // synchronize: true,
-    // logging: true,
 
     return config;
   },
